@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Map.h"
 #include "Define.h"
+#include "Personage.h"
 
 using namespace sf;
 
@@ -16,8 +17,9 @@ private:
     Sprite m_Sprite;
     Texture m_Texture;
     Map map;
-
     
+    PLAYER mario;
+
     void input();
     void update(float TimeMiliSeconds);
     void draw();

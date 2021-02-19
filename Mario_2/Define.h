@@ -11,9 +11,11 @@
 
 // шлях до атласа
 #define BRICK "Resorses/Tiles.png"
+//
+#define MARIO "Resorses/Mario.png"
 
 // шлях до рівнів гри
 #define MAP1 "Resorses/Map/Level_1.txt"
 
 //
-#define MARIO_SPEED 500
+#define MARIO_SPEED 500.f

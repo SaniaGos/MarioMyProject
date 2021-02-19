@@ -1,6 +1,7 @@
 #include "Window.h"
 
-MyWindow::MyWindow() // конструктор ігрового вікна
+MyWindow::MyWindow() :// конструктор ігрового вікна
+    mario(MARIO, 3, MARIO_SPEED, FloatRect(100, 100, 32, 32))
 {
 	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону

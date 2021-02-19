@@ -21,7 +21,7 @@ protected:
        
 public:
     Personage() = delete;
-    Personage(string path, int frames, FloatRect inRect, float speed);
+    Personage(const string path, const int frames, const float speed, FloatRect inRect);
     virtual void update(float time) = 0;
 };
 
@@ -40,7 +40,8 @@ private:
     bool        playerLeft;
 
 public:
-    PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float speed);
+    PLAYER() = delete;
+    PLAYER(const string path, const int frames, const float inSpeed, FloatRect inRect);
     void moveUp();
     void moveDown();
     void moveRight();
@@ -50,6 +51,7 @@ public:
     void stopDown();
     void stopRight();
     void stopLeft();
+    void update(float time);
 
 };
 

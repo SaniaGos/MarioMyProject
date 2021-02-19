@@ -1,7 +1,7 @@
 #include "Personage.h"
 
 
-Personage::Personage(string path, int frames, FloatRect inRect, float speed) : 
+Personage::Personage(const string path, const int frames, const float speed, FloatRect inRect ) :
 	numOfFrame(frames),
 	currentFrame(0),
 	rect(inRect),
@@ -19,8 +19,8 @@ Personage::Personage(string path, int frames, FloatRect inRect, float speed) :
 //	if (currentFrame > numOfFrame) currentFrame = 0;
 //}
 
-PLAYER::PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
-	Personage(path, frames, inRect, speed),
+PLAYER::PLAYER(const string path, const int frames, const float inSpeed, FloatRect inRect) :
+	Personage(path, frames, inSpeed, inRect),
 	onGround(false),
 	playerUp(false),
 	playerDown(false),
@@ -33,43 +33,41 @@ void PLAYER::moveUp()
 {
 	playerUp = true;
 }
-
 void PLAYER::moveDown()
 {
 	playerDown = true;
 }
-
 void PLAYER::moveRight()
 {
 	playerRight = true;
 }
-
 void PLAYER::moveLeft()
 {
 	playerLeft = true;
 }
-
 void PLAYER::stopUp()
 {
 	playerUp = false;
 }
-
 void PLAYER::stopDown()
 {
 	playerDown = false;
 }
-
 void PLAYER::stopRight()
 {
 	playerRight = false;
 }
-
 void PLAYER::stopLeft()
 {
 	playerLeft = false;
 }
+void PLAYER::update(float time)
+{
+	currentFrame += time / playerSpeed;
+	if (currentFrame > numOfFrame) currentFrame = 0;
+}
 
 MinorPesonage::MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
-	Personage(path, frames, inRect, speed)
+	Personage(path, frames, speed, inRect)
 {
 }
