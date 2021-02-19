@@ -10,13 +10,14 @@ Personage::Personage(string path, int frames, FloatRect inRect, float speed) :
 	Texture m_Texture;
 	m_Texture.loadFromFile(path);
 	m_Sprite.setTexture(m_Texture);
+	dx = dy = 0.f;
 }
 
-void Personage::update(float time)
-{
-	currentFrame += time / M_SPEED;
-	if (currentFrame > numOfFrame) currentFrame = 0;
-}
+//void Personage::update(float time)
+//{
+//	currentFrame += time / playerSpeed;
+//	if (currentFrame > numOfFrame) currentFrame = 0;
+//}
 
 PLAYER::PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
 	Personage(path, frames, inRect, speed),
@@ -26,11 +27,49 @@ PLAYER::PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float s
 	playerRight(false),
 	playerLeft(false)
 {
-	dx = dy = 0.f;
+}
+
+void PLAYER::moveUp()
+{
+	playerUp = true;
+}
+
+void PLAYER::moveDown()
+{
+	playerDown = true;
+}
+
+void PLAYER::moveRight()
+{
+	playerRight = true;
+}
+
+void PLAYER::moveLeft()
+{
+	playerLeft = true;
+}
+
+void PLAYER::stopUp()
+{
+	playerUp = false;
+}
+
+void PLAYER::stopDown()
+{
+	playerDown = false;
+}
+
+void PLAYER::stopRight()
+{
+	playerRight = false;
+}
+
+void PLAYER::stopLeft()
+{
+	playerLeft = false;
 }
 
 MinorPesonage::MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
 	Personage(path, frames, inRect, speed)
 {
-	dx = dy = 0.f;
 }

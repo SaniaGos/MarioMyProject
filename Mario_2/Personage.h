@@ -14,14 +14,15 @@ protected:
     int numOfFrame;
     float currentFrame;
     Sprite m_Sprite;
-    FloatRect   rect;
+    FloatRect   rect;           // позиція персонажа і розмір спрайту
     float       playerSpeed;
+    float       dx, dy;
 
        
 public:
     Personage() = delete;
     Personage(string path, int frames, FloatRect inRect, float speed);
-    void update(float time);
+    virtual void update(float time) = 0;
 };
 
 
@@ -31,7 +32,6 @@ private:
     SoundBuffer buffer;
     Sound       sound;
 
-    float       dx, dy;
 
     bool        onGround;
     bool        playerUp;
@@ -41,15 +41,21 @@ private:
 
 public:
     PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float speed);
-
-
+    void moveUp();
+    void moveDown();
+    void moveRight();
+    void moveLeft();
+    
+    void stopUp();
+    void stopDown();
+    void stopRight();
+    void stopLeft();
 
 };
 
 class MinorPesonage : public Personage
 {
 private:
-    float       dx, dy;
 
 public:
     MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed);
