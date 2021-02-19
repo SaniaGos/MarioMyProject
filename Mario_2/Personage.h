@@ -10,16 +10,17 @@ using namespace std;
 
 class Personage
 {
-private:
+protected:
     int numOfFrame;
     float currentFrame;
     Sprite m_Sprite;
     FloatRect   rect;
+    float       playerSpeed;
 
        
 public:
     Personage() = delete;
-    Personage(string path, int frames, FloatRect inRect);
+    Personage(string path, int frames, FloatRect inRect, float speed);
     void update(float time);
 };
 
@@ -37,11 +38,20 @@ private:
     bool        playerDown;
     bool        playerRight;
     bool        playerLeft;
-    float       playerSpeed;
 
 public:
-    PLAYER(string path, int frames, float inSpeed, FloatRect inRect);
+    PLAYER(string path, int frames, float inSpeed, FloatRect inRect, float speed);
 
 
+
+};
+
+class MinorPesonage : public Personage
+{
+private:
+    float       dx, dy;
+
+public:
+    MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed);
 
 };
