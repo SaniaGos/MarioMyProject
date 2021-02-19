@@ -12,6 +12,7 @@ private:
     vector<string> map;
    
 public:
+
     Map();
     vector<string>& getMap();
     void loadMap(string path);

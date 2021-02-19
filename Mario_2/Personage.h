@@ -13,13 +13,13 @@ class Personage
 private:
     int numOfFrame;
     float currentFrame;
-    
     Sprite m_Sprite;
-   // Texture m_Texture;
+    FloatRect   rect;
+
        
 public:
     Personage() = delete;
-    Personage(string path, int frames);
+    Personage(string path, int frames, FloatRect inRect);
     void update(float time);
 };
 
@@ -31,16 +31,16 @@ private:
     Sound       sound;
 
     float       dx, dy;
-    FloatRect   rect;
 
     bool        onGround;
-    bool        m_UpPressed;
-    bool        m_DownPressed;
-    float       m_Speed;
-
+    bool        playerUp;
+    bool        playerDown;
+    bool        playerRight;
+    bool        playerLeft;
+    float       playerSpeed;
 
 public:
-
+    PLAYER(string path, int frames, float inSpeed, FloatRect inRect);
 
 
 
