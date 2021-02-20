@@ -13,15 +13,17 @@ class Personage
 protected:
     int numOfFrame;
     float currentFrame;
-    Sprite m_Sprite;
-    FloatRect   rect;           // позиція персонажа і розмір спрайту
+    FloatRect   rect;     // позиція персонажа і розмір спрайту
+    Texture texture;    
     float       playerSpeed;
     float       dx, dy;
+    Sprite sprite;
 
        
 public:
     Personage() = delete;
     Personage(const string path, const int frames, const float speed, FloatRect inRect);
+    Sprite getSprite() const;
     virtual void update(float time) = 0;
 };
 

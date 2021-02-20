@@ -7,7 +7,7 @@ void MyWindow::draw()
 	myWindow.draw(myBackgroundSprite);		// малюєм задній фон
 	
 	drawMap();								// малюємо карту
-	
+	myWindow.draw(mario.getSprite());
 	myWindow.display();						// відображаєм картину
 
 }

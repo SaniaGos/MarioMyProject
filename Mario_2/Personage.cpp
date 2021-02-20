@@ -7,10 +7,16 @@ Personage::Personage(const string path, const int frames, const float speed, Flo
 	rect(inRect),
 	playerSpeed(speed)
 {
-	Texture m_Texture;
-	m_Texture.loadFromFile(path);
-	m_Sprite.setTexture(m_Texture);
+	texture.loadFromFile(path);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(IntRect(32, 96, 32, 32));
+	sprite.setPosition(rect.left, rect.top);
 	dx = dy = 0.f;
+}
+
+Sprite Personage::getSprite() const
+{
+	return sprite;
 }
 
 //void Personage::update(float time)
