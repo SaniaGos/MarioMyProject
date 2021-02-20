@@ -70,4 +70,5 @@ void PLAYER::update(float time)
 MinorPesonage::MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
 	Personage(path, frames, speed, inRect)
 {
+
 }
