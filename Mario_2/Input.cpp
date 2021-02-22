@@ -8,15 +8,7 @@ void MyWindow::input()
     }
    
     // Опрацьовуємо нажимання клавіш керування Маріо //
-    if (Keyboard::isKeyPressed(Keyboard::Left))
-    {
-        mario.moveLeft();
-    }
-    else
-    {
-        mario.stopLeft();
-    }
-
+   
     if (Keyboard::isKeyPressed(Keyboard::Right))
     {
         mario.moveRight();
@@ -24,6 +16,15 @@ void MyWindow::input()
     else
     {
         mario.stopRight();
+    }
+   
+    if (Keyboard::isKeyPressed(Keyboard::Left))
+    {
+        mario.moveLeft();
+    }
+    else
+    {
+        mario.stopLeft();
     }
 
     if (Keyboard::isKeyPressed(Keyboard::Down))

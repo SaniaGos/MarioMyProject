@@ -13,16 +13,19 @@ class Personage
 protected:
     int numOfFrame;
     float currentFrame;
-    FloatRect   rect;     // позиція персонажа і розмір спрайту
+    Vector2f pozition;             // позиція персонажа
+    Vector2i proportions;       // розмір спрайту персонажа
     Texture texture;    
     float       playerSpeed;
     float       dx, dy;
     Sprite sprite;
+    vector<Sprite> frames;
 
 public:
     Personage() = delete;
-    Personage(const string path, const int frames, const float speed, FloatRect inRect);
+    Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
     Sprite getSprite() const;
+    void setFrames(const vector<IntRect> frames);
     virtual void update(float time) = 0;
 };
 
@@ -43,7 +46,8 @@ private:
     void m_update();
 public:
     PLAYER() = delete;
-    PLAYER(const string path, const int frames, const float inSpeed, FloatRect inRect);
+    PLAYER(const string path, const int frames, const float inSpeed,
+        Vector2f _pozition, Vector2i size);
     void moveUp();
     void moveDown();
     void moveRight();
@@ -62,6 +66,7 @@ class MinorPesonage : public Personage
 private:
 
 public:
-    MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed);
+    MinorPesonage(const string path, const int frames, const float inSpeed,
+        Vector2f _pozition, Vector2i size);
 
 };

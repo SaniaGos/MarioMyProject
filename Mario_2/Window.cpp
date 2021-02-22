@@ -1,7 +1,7 @@
 #include "Window.h"
 
 MyWindow::MyWindow() :// конструктор ≥грового в≥кна
-    mario(MARIO, 3, MARIO_SPEED, FloatRect(100, 100, 32, 32))
+    mario(MARIO, 3, MARIO_SPEED, Vector2f(100, 100), Vector2i(32, 32))
 {
 	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розм≥р в≥кна ≥ даЇм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
@@ -14,6 +14,17 @@ MyWindow::MyWindow() :// конструктор ≥грового в≥кна
 void MyWindow::start()
 {
 	Clock clock;
+    mario.setFrames({
+        IntRect(0,96,32,32),            // кадр сто€чого мар≥о
+        
+        IntRect(32,96,32,32),           // три кадри руху вправо
+        IntRect(64,96,32,32),
+        IntRect(96,96,32,32),
+        
+        IntRect(64,96,-32,32),          // три кадри руху вл≥во
+        IntRect(96,96,-32,32),
+        IntRect(128,96,-32,32),
+        });
     
     while (myWindow.isOpen())
     {

@@ -29,7 +29,7 @@ private:
 public:
     
     MyWindow();
-    
+        
     void start();
 
 };
