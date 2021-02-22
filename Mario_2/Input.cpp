@@ -10,38 +10,38 @@ void MyWindow::input()
     // Опрацьовуємо нажимання клавіш керування Маріо //
     if (Keyboard::isKeyPressed(Keyboard::Left))
     {
-        //Mario.moveLeft();
+        mario.moveLeft();
     }
     else
     {
-        //Mario.stopLeft();
+        mario.stopLeft();
     }
 
     if (Keyboard::isKeyPressed(Keyboard::Right))
     {
-        //Mario.moveRight();
+        mario.moveRight();
     }
     else
     {
-        //Mario.stopRight();
+        mario.stopRight();
     }
 
     if (Keyboard::isKeyPressed(Keyboard::Down))
     {
-        //Mario.moveUp();
+        mario.moveUp();
     }
     else
     {
-        //Mario.stopUp();
+        mario.stopUp();
     }
 
     if (Keyboard::isKeyPressed(Keyboard::Up))
     {
-        //Mario.moveDown();
+        mario.moveDown();
     }
     else
     {
-        //Mario.stopDown();
+        mario.stopDown();
     }
 
 }

@@ -19,7 +19,6 @@ protected:
     float       dx, dy;
     Sprite sprite;
 
-       
 public:
     Personage() = delete;
     Personage(const string path, const int frames, const float speed, FloatRect inRect);
@@ -40,7 +39,8 @@ private:
     bool        playerDown;
     bool        playerRight;
     bool        playerLeft;
-
+    
+    void m_update();
 public:
     PLAYER() = delete;
     PLAYER(const string path, const int frames, const float inSpeed, FloatRect inRect);

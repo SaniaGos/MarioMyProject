@@ -1,6 +1,7 @@
 #include "Personage.h"
 
 
+
 Personage::Personage(const string path, const int frames, const float speed, FloatRect inRect ) :
 	numOfFrame(frames),
 	currentFrame(0),
@@ -18,12 +19,6 @@ Sprite Personage::getSprite() const
 {
 	return sprite;
 }
-
-//void Personage::update(float time)
-//{
-//	currentFrame += time / playerSpeed;
-//	if (currentFrame > numOfFrame) currentFrame = 0;
-//}
 
 PLAYER::PLAYER(const string path, const int frames, const float inSpeed, FloatRect inRect) :
 	Personage(path, frames, inSpeed, inRect),
@@ -67,11 +62,21 @@ void PLAYER::stopLeft()
 {
 	playerLeft = false;
 }
+
 void PLAYER::update(float time)
 {
 	currentFrame += time / playerSpeed;
 	if (currentFrame > numOfFrame) currentFrame = 0;
+	m_update();
 }
+void PLAYER::m_update()
+{
+	if (playerRight) sprite.setTextureRect(IntRect((int)currentFrame * 32 + 32, 96, 32, 32));
+	else if (playerLeft) sprite.setTextureRect(IntRect((int)currentFrame * 32 + 32 + 32, 96, -32, 32));
+}
+
+
+
 
 MinorPesonage::MinorPesonage(string path, int frames, float inSpeed, FloatRect inRect, float speed) :
 	Personage(path, frames, speed, inRect)

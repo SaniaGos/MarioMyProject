@@ -18,4 +18,4 @@
 #define MAP1 "Resorses/Map/Level_1.txt"
 
 //
-#define MARIO_SPEED 500.f
+#define MARIO_SPEED 20.f

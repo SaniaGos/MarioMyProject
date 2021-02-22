@@ -19,8 +19,8 @@ void MyWindow::start()
     {
         float TimeMiliSeconds = clock.restart().asMilliseconds();             // берем час в мілісекундах від початку гри
         
-        TimeMiliSeconds = TimeMiliSeconds / 10;                               // регулюєм швидкість гри
-        if (TimeMiliSeconds > 10) TimeMiliSeconds = 10;
+        TimeMiliSeconds = TimeMiliSeconds / 5;                               // регулюєм швидкість гри
+        if (TimeMiliSeconds > 5) TimeMiliSeconds = 5;
      
         Event event;                                   // якась шняга OpenGL, щоб можна було вікно закривати і переміщати, а то без неї вікно завмирає
         while (myWindow.pollEvent(event)) {
