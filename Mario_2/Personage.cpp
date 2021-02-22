@@ -3,16 +3,16 @@
 
 
 Personage::Personage(const string path, const int _frames, const float speed,
-	Vector2f _pozition, Vector2i size ) :
+	Vector2f _pozition, Vector2i size) :
 	numOfFrame(_frames),
 	currentFrame(0),
 	playerSpeed(speed),
-	pozition(_pozition),
+	position(_pozition),
 	proportions(size)
 {
 	texture.loadFromFile(path);
 	sprite.setTexture(texture);
-	sprite.setPosition(pozition);
+	sprite.setPosition(position);
 	dx = dy = 0.f;
 }
 
@@ -40,6 +40,8 @@ PLAYER::PLAYER(const string path, const int frames, const float inSpeed,
 	playerLeft(false)
 {
 }
+
+Vector2f PLAYER::getPosition() const { return position; }
 
 void PLAYER::moveUp()
 {
@@ -73,25 +75,36 @@ void PLAYER::stopLeft()
 {
 	playerLeft = false;
 }
-void PLAYER::update(float time)
+void PLAYER::update(float time, Map& map)
 {
-	currentFrame += time / playerSpeed;
-	if (currentFrame > numOfFrame) currentFrame = 0;
-	m_update();
+	currentFrame += time * playerSpeed * SPEED / 40;
+	if (currentFrame >= numOfFrame) currentFrame = 0;
+	updateSprite();
+	updatePosition(time, map);
 }
 
-void PLAYER::m_update()
+void PLAYER::updateSprite()
 {
 	if (playerRight && !playerLeft)
 		sprite = frames[currentFrame + 1];
-	
+
 	else if (playerLeft && !playerRight)
-	{
 		sprite = frames[currentFrame + 1 + numOfFrame];
-	}
-	
+
 	else sprite = frames[0];
-	sprite.setPosition(150, 250);
+}
+
+void PLAYER::updatePosition(float time, Map& map)
+{
+	if (playerLeft) position.x -= playerSpeed * time * SPEED / 2;
+	if (playerRight) position.x += playerSpeed * time * SPEED / 2;
+	if (playerUp) position.y += playerSpeed * time * SPEED / 2;
+	if (playerDown) position.y -= playerSpeed * time * SPEED / 2;
+	
+	if (position.x > HORIZONTAL_RESOLUTION / 2)
+		map.offset.x = position.x - HORIZONTAL_RESOLUTION / 2;
+	
+	sprite.setPosition(position.x - map.offset.x, position.y);
 }
 
 

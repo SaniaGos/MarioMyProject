@@ -2,5 +2,5 @@
 
 void MyWindow::update(float TimeMiliSeconds)
 {
-	mario.update(TimeMiliSeconds);
+	mario.update(TimeMiliSeconds, map);
 }

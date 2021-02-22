@@ -13,6 +13,7 @@ private:
     RenderWindow myWindow;
     Texture myBackgroundTexture;
     Sprite myBackgroundSprite;
+    float TimeMiliSeconds;
     
     Sprite m_Sprite;
     Texture m_Texture;

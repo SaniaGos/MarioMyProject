@@ -2,10 +2,11 @@
 
 void MyWindow::draw()
 {
+	
 	myWindow.clear();						// Стираєм попередній кадр
-	
+
 	myWindow.draw(myBackgroundSprite);		// малюєм задній фон
-	
+
 	drawMap();								// малюємо карту
 	myWindow.draw(mario.getSprite());
 	myWindow.display();						// відображаєм картину
@@ -19,7 +20,7 @@ void MyWindow::drawMap()
 		{
 			if (map.getMap()[i][j] == 'B') m_Sprite.setTextureRect(IntRect(32, 0, 32, 32));
 			else continue;
-			m_Sprite.setPosition(32 * j, 32 * i);
+			m_Sprite.setPosition(32 * j - map.offset.x, 32 * i);
 			myWindow.draw(m_Sprite);
 		}
 	}

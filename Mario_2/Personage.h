@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Define.h"
+#include "Map.h"
 
 using namespace sf;
 using namespace std;
@@ -11,14 +12,14 @@ using namespace std;
 class Personage
 {
 protected:
-    int numOfFrame;
-    float currentFrame;
-    Vector2f pozition;             // позиція персонажа
-    Vector2i proportions;       // розмір спрайту персонажа
-    Texture texture;    
-    float       playerSpeed;
-    float       dx, dy;
-    Sprite sprite;
+    int      numOfFrame;
+    float    currentFrame;
+    Vector2f position;             // позиція персонажа
+    Vector2i proportions;          // розмір спрайту персонажа
+    Texture  texture;    
+    float    playerSpeed;
+    float    dx, dy;
+    Sprite   sprite;
     vector<Sprite> frames;
 
 public:
@@ -26,7 +27,7 @@ public:
     Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
     Sprite getSprite() const;
     void setFrames(const vector<IntRect> frames);
-    virtual void update(float time) = 0;
+    virtual void update(float time, Map& map) = 0;
 };
 
 
@@ -43,11 +44,14 @@ private:
     bool        playerRight;
     bool        playerLeft;
     
-    void m_update();
+    void updateSprite();
+    void updatePosition(float time, Map& map);
 public:
     PLAYER() = delete;
     PLAYER(const string path, const int frames, const float inSpeed,
         Vector2f _pozition, Vector2i size);
+    Vector2f getPosition() const;
+    
     void moveUp();
     void moveDown();
     void moveRight();
@@ -57,7 +61,7 @@ public:
     void stopDown();
     void stopRight();
     void stopLeft();
-    void update(float time);
+    void update(float time, Map& map);
 
 };
 
