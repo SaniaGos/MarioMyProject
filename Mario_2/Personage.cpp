@@ -2,13 +2,28 @@
 
 
 
+void Personage::collision(Map& map)
+{
+	for (int i = position.y / ATLAS_HEIGHT; i < (position.y  + proportions.y) / ATLAS_HEIGHT; i++)
+	{
+		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+		{
+			if (map.getMap()[i][j] == 'B')
+			{
+				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
+			}
+		}
+	}
+}
+
 Personage::Personage(const string path, const int _frames, const float speed,
 	Vector2f _pozition, Vector2i size) :
 	numOfFrame(_frames),
 	currentFrame(0),
 	playerSpeed(speed),
 	position(_pozition),
-	proportions(size)
+	proportions(size),
+	onGround(false)
 {
 	texture.loadFromFile(path);
 	sprite.setTexture(texture);
@@ -33,7 +48,6 @@ void Personage::setFrames(const vector<IntRect> rectFrames)
 PLAYER::PLAYER(const string path, const int frames, const float inSpeed,
 	Vector2f _pozition, Vector2i size) :
 	Personage(path, frames, inSpeed, _pozition, size),
-	onGround(false),
 	playerUp(false),
 	playerDown(false),
 	playerRight(false),
@@ -96,12 +110,19 @@ void PLAYER::updateSprite()
 
 void PLAYER::updatePosition(float time, Map& map)
 {
-	if (playerLeft) position.x -= playerSpeed * time * SPEED / 2;
-	if (playerRight) position.x += playerSpeed * time * SPEED / 2;
-	if (playerUp) position.y += playerSpeed * time * SPEED / 2;
-	if (playerDown) position.y -= playerSpeed * time * SPEED / 2;
+	dx = 0.5;
+	if (playerLeft)	position.x -= playerSpeed * time * SPEED * dx;
+	if (playerRight) position.x += playerSpeed * time * SPEED * dx;
+	if (!onGround)
+	{
+		dy += 0.005;
+		position.y += playerSpeed * time * SPEED * dy;
+	}
+	//if (playerUp) position.y -= playerSpeed * time * SPEED / 2;
 	
-	if (position.x > HORIZONTAL_RESOLUTION / 2)
+	collision(map);
+	if (position.x > HORIZONTAL_RESOLUTION / 2 &&
+		position.x < (map.getMap()[0].size() * ATLAS_HEIGHT) - HORIZONTAL_RESOLUTION / 2)
 		map.offset.x = position.x - HORIZONTAL_RESOLUTION / 2;
 	
 	sprite.setPosition(position.x - map.offset.x, position.y);
