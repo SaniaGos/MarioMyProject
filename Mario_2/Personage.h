@@ -21,7 +21,7 @@ protected:
 	Sprite   sprite;
 	vector<Sprite> frames;
 
-	void collision(Map& map);
+	void collision_y(Map& map);
 public:
 	Personage() = delete;
 	Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
@@ -43,6 +43,8 @@ private:
 	bool        playerRight;
 	bool        playerLeft;
 
+	void jump();
+	void collision_x(Map& map);
 	void updateSprite();
 	void updatePosition(float time, Map& map);
 

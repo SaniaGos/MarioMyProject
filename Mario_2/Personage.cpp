@@ -2,18 +2,32 @@
 
 
 
-void Personage::collision(Map& map)
+void PLAYER::collision_x(Map& map)
 {
-	for (int i = position.y / ATLAS_HEIGHT; i < (position.y  + proportions.y) / ATLAS_HEIGHT; i++)
-	{
+	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
 		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
 		{
 			if (map.getMap()[i][j] == 'B')
 			{
-				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
+				if (playerRight) { position.x = j * ATLAS_WIDTH - proportions.x; }
+				if (playerLeft) { position.x = j * ATLAS_WIDTH + ATLAS_WIDTH; }
 			}
+
 		}
-	}
+}
+void Personage::collision_y(Map& map)
+{
+	onGround = false;
+	for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+		for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
+		{
+			if (map.getMap()[i][j] == 'B')
+			{
+				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
+				if (dy < 0) { position.y = i * ATLAS_HEIGHT + ATLAS_HEIGHT, dy = 0; }
+			}
+
+		}
 }
 
 Personage::Personage(const string path, const int _frames, const float speed,
@@ -97,6 +111,15 @@ void PLAYER::update(float time, Map& map)
 	updatePosition(time, map);
 }
 
+void PLAYER::jump()
+{
+	if (onGround)
+	{
+		dy = -2;
+		onGround = false;
+	}
+}
+
 void PLAYER::updateSprite()
 {
 	if (playerRight && !playerLeft)
@@ -113,18 +136,20 @@ void PLAYER::updatePosition(float time, Map& map)
 	dx = 0.5;
 	if (playerLeft)	position.x -= playerSpeed * time * SPEED * dx;
 	if (playerRight) position.x += playerSpeed * time * SPEED * dx;
+	collision_x(map);
+
+	if (playerUp) jump();
 	if (!onGround)
 	{
-		dy += 0.005;
+		dy += 0.015;
 		position.y += playerSpeed * time * SPEED * dy;
 	}
-	//if (playerUp) position.y -= playerSpeed * time * SPEED / 2;
-	
-	collision(map);
+	collision_y(map);
+
 	if (position.x > HORIZONTAL_RESOLUTION / 2 &&
 		position.x < (map.getMap()[0].size() * ATLAS_HEIGHT) - HORIZONTAL_RESOLUTION / 2)
 		map.offset.x = position.x - HORIZONTAL_RESOLUTION / 2;
-	
+
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
 

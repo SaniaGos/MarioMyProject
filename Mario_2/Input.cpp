@@ -27,7 +27,7 @@ void MyWindow::input()
         mario.stopLeft();
     }
 
-    if (Keyboard::isKeyPressed(Keyboard::Down))
+    if (Keyboard::isKeyPressed(Keyboard::Up))
     {
         mario.moveUp();
     }
@@ -36,7 +36,7 @@ void MyWindow::input()
         mario.stopUp();
     }
 
-    if (Keyboard::isKeyPressed(Keyboard::Up))
+    if (Keyboard::isKeyPressed(Keyboard::Down))
     {
         mario.moveDown();
     }
