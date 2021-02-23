@@ -28,26 +28,8 @@ void MyWindow::start()
 		IntRect(96,96,-32,32),
 		IntRect(128,96,-32,32),
 		});
-	sound.play();
 	loadPersonage();
-
-
-
-	MinorPesonage _personage(ENEMIES, 2, SPEED_ENEMIES,
-		128, true, Vector2f(100, 100), Vector2i(32, 32));
-	_personage.setFrames({
-		IntRect(96, 0, 32, 32),          // кадр мертвого
-
-		IntRect(0, 0, 32, 32),           // два кадри руху вправо
-		IntRect(32, 0, 32, 32),
-
-		IntRect(0, 0, 32, 32),           // два кадри руху вліво
-		IntRect(32, 0, 32, 32)
-		});
-
-
-
-
+	sound.play();
 
 	while (myWindow.isOpen())
 	{

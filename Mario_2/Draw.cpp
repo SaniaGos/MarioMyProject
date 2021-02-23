@@ -3,12 +3,12 @@
 void MyWindow::draw()
 {
 	myWindow.clear();						// Стираєм попередній кадр
-
 	myWindow.draw(myBackgroundSprite);		// малюєм задній фон
-
 	drawMap();								// малюємо карту
 	myWindow.draw(mario.getSprite());		// малюєм Маріо
-	drawEnemies();							//drawEnemies();							// малюєм другорядних героїв
+
+	drawEnemies();							// малюєм другорядних героїв
+
 	myWindow.display();						// відображаєм картину
 }
 void MyWindow::drawMap()
@@ -35,13 +35,14 @@ void MyWindow::drawEnemies()
 {
 	for (size_t i = 0; i < personage.size(); i++)
 	{
-		myWindow.draw(personage[i].getSprite());
+		if (personage[i].getPosition_x() > (mario.getPosition_x() - HORIZONTAL_RESOLUTION) &&
+			personage[i].getPosition_x() < (mario.getPosition_x() + HORIZONTAL_RESOLUTION))
+			myWindow.draw(personage[i].getSprite());
 	}
 }
 
 void MyWindow::loadPersonage()
 {
-
 	for (size_t i = 0; i < map.getMap().size(); i++)
 	{
 		for (size_t j = 0; j < map.getMap()[i].size(); j++)
@@ -49,7 +50,7 @@ void MyWindow::loadPersonage()
 			if (map.getMap()[i][j] == 'H')
 			{
 				personage.push_back(MinorPesonage(ENEMIES, 2, SPEED_ENEMIES,
-					128, true, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
+					200, true, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
 				personage.back().setFrameS({
 					IntRect(64, 0, 32, 32),          // кадр мертвого
 
@@ -59,11 +60,23 @@ void MyWindow::loadPersonage()
 					IntRect(0, 0, 32, 32),           // два кадри руху вліво
 					IntRect(32, 0, 32, 32)
 					});
-
-				//else if (map.getMap()[i][j] == 'K') ;
-				//else if (map.getMap()[i][j] == 'M') ;
-				//else continue;
 			}
+			else if (map.getMap()[i][j] == 'K')
+			{
+				personage.push_back(MinorPesonage(ENEMIES, 2, SPEED_ENEMIES,
+					64, true, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 48)));
+				personage.back().setFrameS({
+					IntRect(64, 32, 32, 48),          // кадр мертвого
+
+					IntRect(32, 32, -32, 48),           // два кадри руху вправо
+					IntRect(64, 32, -32, 48),
+
+					IntRect(0, 32, 32, 48),           // два кадри руху вліво
+					IntRect(32, 32, 32, 48)
+					});
+			}
+			else continue;
+
 		}
 	}
 }

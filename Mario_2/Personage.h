@@ -25,10 +25,10 @@ public:
 	Personage() = delete;
 	Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
 	Sprite getSprite() const;
-	void setFrames(const vector<IntRect> frames);
+	int getPosition_x();
+	void setFrames(const vector<IntRect>& frames);
 	virtual void update(float time, Map& map) = 0;
 };
-
 
 class PLAYER : public Personage
 {
@@ -74,13 +74,17 @@ private:
 	const int       progress;
 	const bool      is_x;
 	bool            life;
+	bool            back;
+	float			start_position;
 	vector<IntRect> e_frames;
-	//string      path;
+	
+	void updateSprite();
+	void updatePosition(float time, const Map& map);
 public:
 	MinorPesonage() = delete;
 	MinorPesonage(const string _path, const int frames,
 		const float inSpeed, const int _progress, const bool _is_x,
-		Vector2f _pozition, Vector2i size);
+		Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
-	void setFrameS(const vector<IntRect> frames);
+	void setFrameS(const vector<IntRect>& frames);
 };

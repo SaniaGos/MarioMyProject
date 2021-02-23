@@ -1,9 +1,5 @@
 #include "Personage.h"
 
-
-
-
-
 Personage::Personage(const string path, const int _frames, const float speed,
 	Vector2f _pozition, Vector2i size) :
 	numOfFrame(_frames),
@@ -23,7 +19,11 @@ Sprite Personage::getSprite() const
 {
 	return sprite;
 }
-void Personage::setFrames(const vector<IntRect> rectFrames)
+int Personage::getPosition_x()
+{
+	return position.x;
+}
+void Personage::setFrames(const vector<IntRect>& rectFrames)
 {
 	for (size_t i = 0; i < rectFrames.size(); i++)
 	{
@@ -31,6 +31,12 @@ void Personage::setFrames(const vector<IntRect> rectFrames)
 		frames.push_back(sprite);
 	}
 }
+
+
+
+
+
+// *********** PLAYER ************//
 
 PLAYER::PLAYER(const string jump, const string path, const int frames, const float inSpeed,
 	Vector2f _pozition, Vector2i size) :
@@ -152,25 +158,63 @@ void PLAYER::updatePosition(float time, Map& map)
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
 
+
+
+
+	//*********** MinorPesonage ************//
+
 MinorPesonage::MinorPesonage(const string _path, const int frames,
 	const float inSpeed, const int _progress, const bool _is_x,
-	Vector2f _pozition, Vector2i size):
-	Personage(_path, frames, inSpeed, _pozition, size),
+	Vector2f _position, Vector2i size):
+	Personage(_path, frames, inSpeed, _position, size),
 	progress(_progress),
 	is_x(_is_x)
 {
 	life = true;
+	back = false;
+	_is_x ? start_position = _position.x : start_position = _position.y;
+	proportions.y > ATLAS_HEIGHT ? position.y -= (proportions.y - ATLAS_HEIGHT) : position.y;
+	dx = 0.2;
+}
+
+void MinorPesonage::updateSprite()
+{
+	sprite.setTexture(texture);
+	if (life && !back)
+		sprite.setTextureRect(e_frames[currentFrame + 1]);
+
+	else if (life && back)
+		sprite.setTextureRect(e_frames[currentFrame + 1 + numOfFrame]);
+
+	else sprite.setTextureRect(e_frames[0]);
+}
+
+void MinorPesonage::updatePosition(float time, const Map& map)
+{
+	if (!back)
+	{
+		position.x += playerSpeed * time * dx;
+		if (position.x >= start_position + progress)
+			back = true;
+	}
+	else
+	{
+		position.x -= playerSpeed * time * dx;
+		if (position.x <= start_position)
+			back = false;
+	}
+	sprite.setPosition(position.x - map.offset.x, position.y);
 }
 
 void MinorPesonage::update(float time, Map& map)
 {
-	currentFrame += time * playerSpeed / 100;
+	currentFrame += time * playerSpeed / 80;
 	if (currentFrame >= numOfFrame) currentFrame = 0;
-	sprite.setTexture(texture);
-	sprite.setTextureRect(e_frames[currentFrame + 1]);
+	updateSprite();
+	updatePosition(time, map);
 }
 
-void MinorPesonage::setFrameS(const vector<IntRect> frames)
+void MinorPesonage::setFrameS(const vector<IntRect>& frames)
 {
 	e_frames = frames;
 }
