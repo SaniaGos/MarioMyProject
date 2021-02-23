@@ -19,6 +19,9 @@ private:
     Texture m_Texture;
     Map map;
     
+    SoundBuffer buffer;
+    Sound       sound;
+
     PLAYER mario;
 
     void input();

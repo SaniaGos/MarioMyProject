@@ -44,5 +44,4 @@ void MyWindow::input()
     {
         mario.stopDown();
     }
-
 }

@@ -7,12 +7,12 @@ void PLAYER::collision_x(Map& map)
 	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
 		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
 		{
-			if (map.getMap()[i][j] == 'B')
+			if (map.getMap()[i][j] == 'B' ||
+				map.getMap()[i][j] == '0')
 			{
 				if (playerRight) { position.x = j * ATLAS_WIDTH - proportions.x; }
 				if (playerLeft) { position.x = j * ATLAS_WIDTH + ATLAS_WIDTH; }
 			}
-
 		}
 }
 void Personage::collision_y(Map& map)
@@ -21,12 +21,12 @@ void Personage::collision_y(Map& map)
 	for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
 		for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
 		{
-			if (map.getMap()[i][j] == 'B')
+			if (map.getMap()[i][j] == 'B' ||
+				map.getMap()[i][j] == '0')
 			{
 				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
 				if (dy < 0) { position.y = i * ATLAS_HEIGHT + ATLAS_HEIGHT, dy = 0; }
 			}
-
 		}
 }
 
@@ -59,7 +59,7 @@ void Personage::setFrames(const vector<IntRect> rectFrames)
 	}
 }
 
-PLAYER::PLAYER(const string path, const int frames, const float inSpeed,
+PLAYER::PLAYER(const string jump, const string path, const int frames, const float inSpeed,
 	Vector2f _pozition, Vector2i size) :
 	Personage(path, frames, inSpeed, _pozition, size),
 	playerUp(false),
@@ -67,6 +67,8 @@ PLAYER::PLAYER(const string path, const int frames, const float inSpeed,
 	playerRight(false),
 	playerLeft(false)
 {
+	buffer.loadFromFile(jump);
+	sound.setBuffer(buffer);
 }
 
 Vector2f PLAYER::getPosition() const { return position; }
@@ -105,7 +107,7 @@ void PLAYER::stopLeft()
 }
 void PLAYER::update(float time, Map& map)
 {
-	currentFrame += time * playerSpeed * SPEED / 40;
+	currentFrame += time * playerSpeed / 50;
 	if (currentFrame >= numOfFrame) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
@@ -115,8 +117,9 @@ void PLAYER::jump()
 {
 	if (onGround)
 	{
-		dy = -2;
+		dy = -1;
 		onGround = false;
+		sound.play();
 	}
 }
 
@@ -134,15 +137,15 @@ void PLAYER::updateSprite()
 void PLAYER::updatePosition(float time, Map& map)
 {
 	dx = 0.5;
-	if (playerLeft)	position.x -= playerSpeed * time * SPEED * dx;
-	if (playerRight) position.x += playerSpeed * time * SPEED * dx;
+	if (playerLeft)	position.x -= playerSpeed * time * dx;
+	if (playerRight) position.x += playerSpeed * time * dx;
 	collision_x(map);
 
 	if (playerUp) jump();
 	if (!onGround)
 	{
-		dy += 0.015;
-		position.y += playerSpeed * time * SPEED * dy;
+		dy += 0.0045 * time * playerSpeed;
+		position.y += playerSpeed * time * dy;
 	}
 	collision_y(map);
 

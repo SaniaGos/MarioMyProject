@@ -1,7 +1,7 @@
 #include "Window.h"
 
 MyWindow::MyWindow() :// конструктор ігрового вікна
-	mario(MARIO, 3, MARIO_SPEED, Vector2f(100, 100), Vector2i(32, 32))
+	mario(JUMP, MARIO, 3, MARIO_SPEED, Vector2f(100, 100), Vector2i(32, 32))
 {
 	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
@@ -10,6 +10,8 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	m_Texture.loadFromFile(BRICK);
 	m_Sprite.setTexture(m_Texture);
 	TimeMiliSeconds = 0;
+	buffer.loadFromFile(MUSIC);
+	sound.setBuffer(buffer);
 }
 
 void MyWindow::start()
@@ -26,12 +28,15 @@ void MyWindow::start()
 		IntRect(96,96,-32,32),
 		IntRect(128,96,-32,32),
 		});
-
+	sound.play();
 
 	while (myWindow.isOpen())
 	{
-		TimeMiliSeconds = clock.restart().asMicroseconds();             // берем час в мілісекундах від початку гри
-		if (TimeMiliSeconds > SPEED) TimeMiliSeconds = SPEED;           // регулюєм швидкість гри
+		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
+		clock.restart();
+		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED;
+
+		if (TimeMiliSeconds > 5) TimeMiliSeconds = 5;           // регулюєм швидкість гри
 
 		Event event;                                   // якась шняга OpenGL, щоб можна було вікно закривати і переміщати, а то без неї вікно завмирає
 		while (myWindow.pollEvent(event)) {

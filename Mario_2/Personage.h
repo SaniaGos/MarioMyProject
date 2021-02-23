@@ -51,7 +51,7 @@ private:
 
 public:
 	PLAYER() = delete;
-	PLAYER(const string path, const int frames, const float inSpeed,
+	PLAYER(const string jump, const string path, const int frames, const float inSpeed,
 		Vector2f _pozition, Vector2i size);
 	Vector2f getPosition() const;
 
