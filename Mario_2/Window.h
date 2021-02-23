@@ -16,7 +16,7 @@ private:
     float TimeMiliSeconds;
     
     Sprite m_Sprite;
-    Texture m_Texture;
+    Texture texture;
     Map map;
     
     SoundBuffer buffer;
@@ -24,11 +24,14 @@ private:
 
     PLAYER mario;
 
+    vector<MinorPesonage> personage;
+
     void input();
     void update(float TimeMiliSeconds);
     void draw();
     void drawMap();
-
+    void drawEnemies();
+    void loadPersonage();
 
 public:
     

@@ -21,7 +21,6 @@ protected:
 	Sprite   sprite;
 	vector<Sprite> frames;
 
-	void collision_y(Map& map);
 public:
 	Personage() = delete;
 	Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
@@ -44,6 +43,7 @@ private:
 	bool        playerLeft;
 
 	void jump();
+	void collision_y(Map& map);
 	void collision_x(Map& map);
 	void updateSprite();
 	void updatePosition(float time, Map& map);
@@ -71,9 +71,16 @@ public:
 class MinorPesonage : public Personage
 {
 private:
-
+	const int       progress;
+	const bool      is_x;
+	bool            life;
+	vector<IntRect> e_frames;
+	//string      path;
 public:
-	MinorPesonage(const string path, const int frames, const float inSpeed,
+	MinorPesonage() = delete;
+	MinorPesonage(const string _path, const int frames,
+		const float inSpeed, const int _progress, const bool _is_x,
 		Vector2f _pozition, Vector2i size);
-
+	void update(float time, Map& map);
+	void setFrameS(const vector<IntRect> frames);
 };

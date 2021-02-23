@@ -2,33 +2,7 @@
 
 
 
-void PLAYER::collision_x(Map& map)
-{
-	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
-		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
-		{
-			if (map.getMap()[i][j] == 'B' ||
-				map.getMap()[i][j] == '0')
-			{
-				if (playerRight) { position.x = j * ATLAS_WIDTH - proportions.x; }
-				if (playerLeft) { position.x = j * ATLAS_WIDTH + ATLAS_WIDTH; }
-			}
-		}
-}
-void Personage::collision_y(Map& map)
-{
-	onGround = false;
-	for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
-		for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
-		{
-			if (map.getMap()[i][j] == 'B' ||
-				map.getMap()[i][j] == '0')
-			{
-				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
-				if (dy < 0) { position.y = i * ATLAS_HEIGHT + ATLAS_HEIGHT, dy = 0; }
-			}
-		}
-}
+
 
 Personage::Personage(const string path, const int _frames, const float speed,
 	Vector2f _pozition, Vector2i size) :
@@ -49,7 +23,6 @@ Sprite Personage::getSprite() const
 {
 	return sprite;
 }
-
 void Personage::setFrames(const vector<IntRect> rectFrames)
 {
 	for (size_t i = 0; i < rectFrames.size(); i++)
@@ -67,12 +40,39 @@ PLAYER::PLAYER(const string jump, const string path, const int frames, const flo
 	playerRight(false),
 	playerLeft(false)
 {
+	dx = 0.5;
 	buffer.loadFromFile(jump);
 	sound.setBuffer(buffer);
 }
 
 Vector2f PLAYER::getPosition() const { return position; }
-
+void PLAYER::collision_x(Map& map)
+{
+	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
+		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+		{
+			if (map.getMap()[i][j] == 'B' ||
+				map.getMap()[i][j] == '0')
+			{
+				if (playerRight) { position.x = j * ATLAS_WIDTH - proportions.x; }
+				if (playerLeft) { position.x = j * ATLAS_WIDTH + ATLAS_WIDTH; }
+			}
+		}
+}
+void PLAYER::collision_y(Map& map)
+{
+	onGround = false;
+	for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+		for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
+		{
+			if (map.getMap()[i][j] == 'B' ||
+				map.getMap()[i][j] == '0')
+			{
+				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
+				if (dy < 0) { position.y = i * ATLAS_HEIGHT + ATLAS_HEIGHT, dy = 0; }
+			}
+		}
+}
 void PLAYER::moveUp()
 {
 	playerUp = true;
@@ -112,7 +112,6 @@ void PLAYER::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
-
 void PLAYER::jump()
 {
 	if (onGround)
@@ -122,7 +121,6 @@ void PLAYER::jump()
 		sound.play();
 	}
 }
-
 void PLAYER::updateSprite()
 {
 	if (playerRight && !playerLeft)
@@ -133,10 +131,8 @@ void PLAYER::updateSprite()
 
 	else sprite = frames[0];
 }
-
 void PLAYER::updatePosition(float time, Map& map)
 {
-	dx = 0.5;
 	if (playerLeft)	position.x -= playerSpeed * time * dx;
 	if (playerRight) position.x += playerSpeed * time * dx;
 	collision_x(map);
@@ -156,12 +152,25 @@ void PLAYER::updatePosition(float time, Map& map)
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
 
-
-
-
-MinorPesonage::MinorPesonage(const string path, const int frames, const float inSpeed,
-	Vector2f _pozition, Vector2i size) :
-	Personage(path, frames, inSpeed, _pozition, size)
+MinorPesonage::MinorPesonage(const string _path, const int frames,
+	const float inSpeed, const int _progress, const bool _is_x,
+	Vector2f _pozition, Vector2i size):
+	Personage(_path, frames, inSpeed, _pozition, size),
+	progress(_progress),
+	is_x(_is_x)
 {
+	life = true;
+}
 
+void MinorPesonage::update(float time, Map& map)
+{
+	currentFrame += time * playerSpeed / 100;
+	if (currentFrame >= numOfFrame) currentFrame = 0;
+	sprite.setTexture(texture);
+	sprite.setTextureRect(e_frames[currentFrame + 1]);
+}
+
+void MinorPesonage::setFrameS(const vector<IntRect> frames)
+{
+	e_frames = frames;
 }

@@ -7,8 +7,8 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
 	myBackgroundSprite.setTexture(myBackgroundTexture);                                             // загружаєм картинку в спрайт заднього фону
 	map.loadMap(MAP1);
-	m_Texture.loadFromFile(BRICK);
-	m_Sprite.setTexture(m_Texture);
+	texture.loadFromFile(BRICK);
+	m_Sprite.setTexture(texture);
 	TimeMiliSeconds = 0;
 	buffer.loadFromFile(MUSIC);
 	sound.setBuffer(buffer);
@@ -29,6 +29,25 @@ void MyWindow::start()
 		IntRect(128,96,-32,32),
 		});
 	sound.play();
+	loadPersonage();
+
+
+
+	MinorPesonage _personage(ENEMIES, 2, SPEED_ENEMIES,
+		128, true, Vector2f(100, 100), Vector2i(32, 32));
+	_personage.setFrames({
+		IntRect(96, 0, 32, 32),          // кадр мертвого
+
+		IntRect(0, 0, 32, 32),           // два кадри руху вправо
+		IntRect(32, 0, 32, 32),
+
+		IntRect(0, 0, 32, 32),           // два кадри руху вліво
+		IntRect(32, 0, 32, 32)
+		});
+
+
+
+
 
 	while (myWindow.isOpen())
 	{

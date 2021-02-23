@@ -8,21 +8,26 @@
 // Music
 #define MUSIC          "Resorses/music/Theme.ogg"
 
-// швидкість гри (по замовчеванню 1)
-#define SPEED         1.f
+// шлях до атласа карти
+#define BRICK          "Resorses/Tiles.png"
+// шлях до атласа тварин
+#define ENEMIES        "Resorses/Enemies.png"
 
-// шлях до атласа
-#define BRICK         "Resorses/Tiles.png"
 // розмір атласа
 #define ATLAS_WIDTH   32
 #define ATLAS_HEIGHT  32
 
 // шлях до рівнів гри
-#define MAP1          "Resorses/Map/Level_1.txt"
+#define MAP1           "Resorses/Map/Level_1.txt"
+
+// швидкість гри (по замовчеванню 1)
+#define SPEED             1.f
+// швидкість тваринок
+#define SPEED_ENEMIES     1.f
 
 //// MARIO
 // speed
-#define MARIO_SPEED   1.f
+#define MARIO_SPEED       1.f
 // Srite
 #define MARIO         "Resorses/Mario.png"
 // sound jump
