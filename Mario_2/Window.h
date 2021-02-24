@@ -32,6 +32,7 @@ private:
     void drawMap();
     void drawEnemies();
     void loadPersonage();
+    void clash_Personage();
 
 public:
     

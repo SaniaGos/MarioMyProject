@@ -1,13 +1,13 @@
 #include "Window.h"
 
 MyWindow::MyWindow() :// конструктор ігрового вікна
-	mario(JUMP, MARIO, 3, MARIO_SPEED, Vector2f(100, 100), Vector2i(32, 32))
+	mario(Vector2f(100, 100), Vector2i(32, 32))
 {
 	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
 	myBackgroundSprite.setTexture(myBackgroundTexture);                                             // загружаєм картинку в спрайт заднього фону
 	map.loadMap(MAP1);
-	texture.loadFromFile(BRICK);
+	texture.loadFromFile(MAP_ATLAS);
 	m_Sprite.setTexture(texture);
 	TimeMiliSeconds = 0;
 	buffer.loadFromFile(MUSIC);
@@ -35,7 +35,7 @@ void MyWindow::start()
 	{
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
 		clock.restart();
-		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED;
+		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED_GAME;
 
 		if (TimeMiliSeconds > 5) TimeMiliSeconds = 5;           // регулюєм швидкість гри
 

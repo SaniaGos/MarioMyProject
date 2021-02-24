@@ -8,29 +8,31 @@
 // Music
 #define MUSIC          "Resorses/music/Theme.ogg"
 
-// шлях до атласа карти
-#define BRICK          "Resorses/Tiles.png"
-// шлях до атласа тварин
-#define ENEMIES        "Resorses/Enemies.png"
-// MONEY and other
-#define MONEY          "Resorses/Items.png"
-// розмір атласа
-#define ATLAS_WIDTH   32
-#define ATLAS_HEIGHT  32
+//**** MAP ****//
+#define MAP1			   "Resorses/Map/Level_1.txt"
+#define MAP_ATLAS          "Resorses/Tiles.png"
+#define ATLAS_WIDTH		   32
+#define ATLAS_HEIGHT	   32
+#define SPEED_GAME         1.f
 
-// шлях до рівнів гри
-#define MAP1           "Resorses/Map/Level_1.txt"
+//**** ENEMIES ****//
+#define SPEED_ENEMIES      1.f
+#define MAX_DISTANCE	   196
+#define ENEMIES		       "Resorses/Enemies.png"
+#define ITEMS			   "Resorses/Items.png"
 
-// швидкість гри (по замовчеванню 1)
-#define SPEED             1.f
-// швидкість тваринок
-#define SPEED_ENEMIES     1.f
+#define MONEY_FRAMES	   4
+#define MONEY_LIVES 	   1
+#define MONEY_SOUND 	   "Resorses/music/jump.wav"
 
-//// MARIO
-// speed
-#define MARIO_SPEED       1.f
-// Srite
-#define MARIO         "Resorses/Mario.png"
-// sound jump
-#define JUMP          "Resorses/music/jump.wav"
+#define MUSHR_FRAMES	   2
+#define MUSHR_LIVES		   1
+
+#define TURTLE_LIVES	   2
+
+//***** MARIO *****//
+#define MARIO_SPEED        1.f
+#define MARIO_FRAMES       3
+#define MARIO_SPRITE       "Resorses/Mario.png"
+#define MARIO_JUMP         "Resorses/music/jump.wav"
 

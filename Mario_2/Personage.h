@@ -11,20 +11,20 @@ class Minor_Personage;
 class Personage
 {
 protected:
-	int      numOfFrame;
-	float    currentFrame;
-	Vector2f position;             // позиція персонажа
-	Vector2i proportions;          // розмір спрайту персонажа
-	Texture  texture;
-	float    playerSpeed;
-	float    dx, dy;
-	bool     onGround;
-	Sprite   sprite;
-	vector<Sprite> frames;
+	SoundBuffer		buffer;
+	Sound			sound;
+	float			currentFrame;
+	Vector2f		position;             // позиція персонажа
+	Vector2i		proportions;          // розмір спрайту персонажа
+	Texture			texture;
+	float			dx, dy;
+	Sprite			sprite;
+	vector<Sprite>	frames;
+	int             lives;
 
 public:
 	Personage() = delete;
-	Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
+	Personage(Vector2f _pozition, Vector2i size);
 	Sprite getSprite() const;
 	Vector2f getPosition() const;
 	virtual void setFrames(const vector<IntRect>& frames) = 0;
@@ -35,14 +35,13 @@ public:
 class PLAYER : public Personage
 {
 private:
-	SoundBuffer buffer;
-	Sound       sound;
 
 
 	bool        playerUp;
 	bool        playerDown;
 	bool        playerRight;
 	bool        playerLeft;
+	bool	    onGround;
 
 	void jump();
 	void collision_y(Map& map);
@@ -53,8 +52,7 @@ private:
 
 public:
 	PLAYER() = delete;
-	PLAYER(const string jump, const string path, const int frames, const float inSpeed,
-		Vector2f _pozition, Vector2i size);
+	PLAYER(Vector2f _pozition, Vector2i size);
 
 	void moveUp();
 	void moveDown();
@@ -74,16 +72,13 @@ public:
 class Minor_Personage : public Personage
 {
 protected:
-	
-	int             lives;
+		
 	vector<IntRect> e_frames;
-	
+
 	virtual void updateSprite() = 0;
 public:
 	Minor_Personage() = delete;
-	Minor_Personage(const string _path, const int frames,
-		const float inSpeed, int lives,
-		Vector2f _position, Vector2i size);
+	Minor_Personage(Vector2f _position, Vector2i size);
 	void setFrames(const vector<IntRect>& frames);
 	bool getLives() const;
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
@@ -92,16 +87,13 @@ public:
 class Mushrooms_And_Turtles : public Minor_Personage
 {
 private:
-	const int       progress;
 	bool            back;
 	float			start_position;
 	void updatePosition(float time, const Map& map);
 	void updateSprite();
 public:
-	Mushrooms_And_Turtles(const string _path, const int frames,
-		const float inSpeed, const int _progress, int lives,
-		Vector2f _position, Vector2i size);
-	
+	Mushrooms_And_Turtles(Vector2f _position, Vector2i size);
+
 	void update(float time, Map& map);
 	void die();
 };
@@ -114,9 +106,7 @@ private:
 	void updateSprite();
 public:
 	Money() = delete;
-	Money(const string _path, const int frames,
-		const float inSpeed, int lives,
-		Vector2f _position, Vector2i size);
+	Money(Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
 	void die();
 };

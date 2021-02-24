@@ -49,8 +49,8 @@ void MyWindow::loadPersonage()
 		{
 			if (map.getMap()[i][j] == 'H')
 			{
-				personage.push_back(new Mushrooms_And_Turtles(ENEMIES, 2, SPEED_ENEMIES,
-					200, 1, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
+				personage.push_back(new Mushrooms_And_Turtles(
+					Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
 				personage.back()->setFrames({
 					IntRect(64, 0, 32, 32),          // кадр мертвого
 
@@ -63,8 +63,8 @@ void MyWindow::loadPersonage()
 			}
 			else if (map.getMap()[i][j] == 'K')
 			{
-				personage.push_back(new Mushrooms_And_Turtles(ENEMIES, 2, SPEED_ENEMIES,
-					64, 2, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 48)));
+				personage.push_back(new Mushrooms_And_Turtles(
+					Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 48)));
 				personage.back()->setFrames({
 					IntRect(64, 32, 32, 48),          // кадр мертвого
 
@@ -77,8 +77,8 @@ void MyWindow::loadPersonage()
 			}
 			else if (map.getMap()[i][j] == 'M')
 			{
-				personage.push_back(new Money(MONEY, 4, SPEED_ENEMIES,
-					1, Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
+				personage.push_back(new Money(
+					Vector2f(j * ATLAS_WIDTH, i * ATLAS_HEIGHT), Vector2i(32, 32)));
 				personage.back()->setFrames({
 					IntRect(0, 84, 32, 32),				// кадр 1
 					IntRect(32, 84, 32, 32),			// кадр 2

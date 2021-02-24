@@ -1,39 +1,38 @@
 #include "Personage.h"
 
-Personage::Personage(const string path, const int _frames, const float speed,
-	Vector2f _pozition, Vector2i size) :
-	numOfFrame(_frames),
+Personage::Personage(Vector2f _pozition, Vector2i size) :
 	currentFrame(0),
-	playerSpeed(speed),
 	position(_pozition),
 	proportions(size),
-	onGround(false)
+	texture(),
+	sprite(),
+	buffer(),
+	sound(),
+	lives(0)
 {
-	texture.loadFromFile(path);
-	sprite.setTexture(texture);
-	sprite.setPosition(position);
 	dx = dy = 0.f;
 }
-
 Sprite Personage::getSprite() const { return sprite; }
 Vector2f Personage::getPosition() const { return position; }
 
 
-	   // *********** PLAYER ************//
-//**********************************************//
-PLAYER::PLAYER(const string jump, const string path, const int frames, const float inSpeed,
-	Vector2f _pozition, Vector2i size) :
-	Personage(path, frames, inSpeed, _pozition, size),
+// ************* PLAYER ************//
+//**********************************//
+PLAYER::PLAYER(Vector2f _pozition, Vector2i size) :
+	Personage(_pozition, size),
 	playerUp(false),
 	playerDown(false),
 	playerRight(false),
-	playerLeft(false)
+	playerLeft(false),
+	onGround(false)
 {
 	dx = 0.5;
-	buffer.loadFromFile(jump);
+	texture.loadFromFile(MARIO_SPRITE);
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
+	buffer.loadFromFile(MARIO_JUMP);
 	sound.setBuffer(buffer);
 }
-
 void PLAYER::collision_x(Map& map)
 {
 	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
@@ -61,42 +60,18 @@ void PLAYER::collision_y(Map& map)
 			}
 		}
 }
-void PLAYER::moveUp()
-{
-	playerUp = true;
-}
-void PLAYER::moveDown()
-{
-	playerDown = true;
-}
-void PLAYER::moveRight()
-{
-	playerRight = true;
-}
-void PLAYER::moveLeft()
-{
-	playerLeft = true;
-}
-void PLAYER::stopUp()
-{
-	playerUp = false;
-}
-void PLAYER::stopDown()
-{
-	playerDown = false;
-}
-void PLAYER::stopRight()
-{
-	playerRight = false;
-}
-void PLAYER::stopLeft()
-{
-	playerLeft = false;
-}
+void PLAYER::moveUp() { playerUp = true; }
+void PLAYER::moveDown() { playerDown = true; }
+void PLAYER::moveRight() { playerRight = true; }
+void PLAYER::moveLeft() { playerLeft = true; }
+void PLAYER::stopUp() { playerUp = false; }
+void PLAYER::stopDown() { playerDown = false; }
+void PLAYER::stopRight() { playerRight = false; }
+void PLAYER::stopLeft() { playerLeft = false; }
 void PLAYER::update(float time, Map& map)
 {
-	currentFrame += time * playerSpeed / 50;
-	if (currentFrame >= numOfFrame) currentFrame = 0;
+	currentFrame += time * MARIO_SPEED / 50;
+	if ((int)currentFrame >= MARIO_FRAMES) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
@@ -119,21 +94,21 @@ void PLAYER::updateSprite()
 		sprite = frames[currentFrame + 1];
 
 	else if (playerLeft && !playerRight)
-		sprite = frames[currentFrame + 1 + numOfFrame];
+		sprite = frames[currentFrame + 1 + MARIO_FRAMES];
 
 	else sprite = frames[0];
 }
 void PLAYER::updatePosition(float time, Map& map)
 {
-	if (playerLeft)	position.x -= playerSpeed * time * dx;
-	if (playerRight) position.x += playerSpeed * time * dx;
+	if (playerLeft)	position.x -= MARIO_SPEED * time * dx;
+	if (playerRight) position.x += MARIO_SPEED * time * dx;
 	collision_x(map);
 
 	if (playerUp) jump();
 	if (!onGround)
 	{
-		dy += 0.0045 * time * playerSpeed;
-		position.y += playerSpeed * time * dy;
+		dy += 0.0045 * time * MARIO_SPEED;
+		position.y += MARIO_SPEED * time * dy;
 	}
 	collision_y(map);
 
@@ -152,14 +127,11 @@ void PLAYER::setFrames(const vector<IntRect>& rectFrames)
 	}
 }
 
-	//*********** MinorPesonage ************//
+//*********** MinorPesonage ************//
 //**********************************************//
-Minor_Personage::Minor_Personage(const string _path, const int frames,
-	const float inSpeed, int _lives,
-	Vector2f _position, Vector2i size):
-	Personage(_path, frames, inSpeed, _position, size)
+Minor_Personage::Minor_Personage(Vector2f _position, Vector2i size) :
+	Personage(_position, size)
 {
-	lives = _lives;
 	proportions.y > ATLAS_HEIGHT ? position.y -= (proportions.y - ATLAS_HEIGHT) : position.y;
 }
 void Minor_Personage::setFrames(const vector<IntRect>& frames)
@@ -174,25 +146,28 @@ bool Minor_Personage::getLives() const
 //
 //*********** Mushrooms_And_Turtles ************//
 //**********************************************//
-Mushrooms_And_Turtles::Mushrooms_And_Turtles(const string _path, const int frames,
-	const float inSpeed, const int _progress, int _lives, Vector2f _position, Vector2i size) :
-	Minor_Personage(_path, frames, inSpeed, _lives, _position, size),
-	progress(_progress), back(false)
+Mushrooms_And_Turtles::Mushrooms_And_Turtles(Vector2f _position, Vector2i size) :
+	Minor_Personage(_position, size),
+	back(false)
 {
+	texture.loadFromFile(ENEMIES);
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
 	start_position = _position.x;
+	lives = MUSHR_LIVES;
 	dx = 0.2;
 }
 void Mushrooms_And_Turtles::updatePosition(float time, const Map& map)
 {
 	if (!back)
 	{
-		position.x += playerSpeed * time * dx;
-		if (position.x >= start_position + progress)
+		position.x += SPEED_ENEMIES * time * dx;
+		if (position.x >= start_position + MAX_DISTANCE)
 			back = true;
 	}
 	else
 	{
-		position.x -= playerSpeed * time * dx;
+		position.x -= SPEED_ENEMIES * time * dx;
 		if (position.x <= start_position)
 			back = false;
 	}
@@ -200,8 +175,8 @@ void Mushrooms_And_Turtles::updatePosition(float time, const Map& map)
 }
 void Mushrooms_And_Turtles::update(float time, Map& map)
 {
-	currentFrame += time * playerSpeed / 80;
-	if (currentFrame >= numOfFrame) currentFrame = 0;
+	currentFrame += time * SPEED_ENEMIES / 80;
+	if ((int)currentFrame >= MUSHR_FRAMES) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
@@ -216,23 +191,28 @@ void Mushrooms_And_Turtles::updateSprite()
 		sprite.setTextureRect(e_frames[currentFrame + 1]);
 
 	else if (lives > 0 && back)
-		sprite.setTextureRect(e_frames[currentFrame + 1 + numOfFrame]);
+		sprite.setTextureRect(e_frames[currentFrame + 1 + MUSHR_FRAMES]);
 
 	else sprite.setTextureRect(e_frames[0]);
 }
 //
 //
-	    //*********** Money ************//
+		//*********** Money ************//
 //**********************************************//
-Money::Money(const string _path, const int frames,
-	const float inSpeed, int lives,
-	Vector2f _position, Vector2i size) :
-	Minor_Personage(_path, frames, inSpeed, lives, _position, size)
-{}
-void Money::update(float time, Map & map)
+Money::Money(Vector2f _position, Vector2i size) :
+	Minor_Personage(_position, size)
 {
-	currentFrame += time * playerSpeed / 180;
-	if (currentFrame >= numOfFrame) currentFrame = 0;
+	texture.loadFromFile(ITEMS);
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
+	buffer.loadFromFile(MONEY_SOUND);
+	sound.setBuffer(buffer);
+	lives = MONEY_LIVES;
+}
+void Money::update(float time, Map& map)
+{
+	currentFrame += time * SPEED_ENEMIES / 180;
+	if (currentFrame >= MONEY_FRAMES) currentFrame = 0;
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
@@ -252,5 +232,17 @@ void Money::updateSprite()
 
 void clashPersonage(PLAYER& Mario, Minor_Personage& personage)
 {
-
+	if (FloatRect(Mario.position, Vector2f(Mario.proportions)).intersects(FloatRect(personage.position, Vector2f(personage.proportions))))
+	{
+		if (personage.getLives())
+		{
+			if (Mario.dy > 0)
+			{
+				Mario.dy = -0.8;
+				personage.die();
+			}
+			else
+				Mario.die();
+		}
+	}
 }
