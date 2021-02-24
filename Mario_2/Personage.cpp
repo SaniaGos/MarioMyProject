@@ -2,8 +2,8 @@
 
 void clashPersonage(PLAYER& Mario, Minor_Personage& personage)
 {
-	if (Mario.getRect().intersects(personage.getRect()))
-		personage.die(Mario);
+	if (personage.lives && Mario.getRect().intersects(personage.getRect()))
+		personage.collision(Mario);
 }
 
 Personage::Personage(Vector2f _pozition, Vector2i size) :
@@ -20,6 +20,11 @@ Personage::Personage(Vector2f _pozition, Vector2i size) :
 }
 Sprite Personage::getSprite() const { return sprite; }
 Vector2f Personage::getPosition() const { return position; }
+Vector2f Personage::getSpeed() const { return Vector2f(dx, dy); }
+void Personage::setSpeed_y(float speed_y)
+{
+	dy = speed_y;
+}
 FloatRect Personage::getRect() const
 {
 	return FloatRect(position, Vector2f(proportions));
@@ -142,7 +147,7 @@ void PLAYER::setFrames(const vector<IntRect>& rectFrames)
 //*********** MinorPesonage ************//
 //**********************************************//
 Minor_Personage::Minor_Personage(Vector2f _position, Vector2i size) :
-	Personage(_position, size)
+	Personage(_position, size), life(true)
 {
 	proportions.y > ATLAS_HEIGHT ? position.y -= (proportions.y - ATLAS_HEIGHT) : position.y;
 }
@@ -150,10 +155,7 @@ void Minor_Personage::setFrames(const vector<IntRect>& frames)
 {
 	e_frames = frames;
 }
-bool Minor_Personage::getLives() const
-{
-	return lives > 0 ? true : false;
-}
+bool Minor_Personage::getLives() const { return life;}
 //
 //
 //*********** Mushrooms_And_Turtles ************//
@@ -181,17 +183,20 @@ Mushrooms::Mushrooms(Vector2f _position, Vector2i size) :
 }
 void Mushrooms::updatePosition(float time, const Map& map)
 {
-	if (!back)
+	if (lives != 0)
 	{
-		position.x += SPEED_ENEMIES * time * dx;
-		if (position.x >= start_position + MAX_DISTANCE)
-			back = true;
-	}
-	else
-	{
-		position.x -= SPEED_ENEMIES * time * dx;
-		if (position.x <= start_position)
-			back = false;
+		if (!back)
+		{
+			position.x += SPEED_ENEMIES * time * dx;
+			if (position.x >= start_position + MAX_DISTANCE)
+				back = true;
+		}
+		else
+		{
+			position.x -= SPEED_ENEMIES * time * dx;
+			if (position.x <= start_position)
+				back = false;
+		}
 	}
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
@@ -202,10 +207,14 @@ void Mushrooms::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
-void Mushrooms::die() {}
-void Mushrooms::die(PLAYER&)
+void Mushrooms::die() { lives = 0; }
+void Mushrooms::collision(PLAYER& mario)
 {
-
+	if (mario.getSpeed().y > 0)
+	{
+		mario.setSpeed_y(-0.8);
+		die();
+	}
 }
 void Mushrooms::updateSprite()
 {
@@ -246,13 +255,13 @@ void Money::update(float time, Map& map)
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
-void Money::die(PLAYER& mario)
+void Money::collision(PLAYER& mario)
 {
 	sound.play();
-	lives = 0;
 	mario.addCoin();
+	die();
 }
-void Money::die() {}
+void Money::die() { lives = 0, life = false; }
 void Money::updateSprite()
 {
 	sprite.setTexture(texture);
@@ -321,6 +330,6 @@ void Turtle::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
-void Turtle::die(PLAYER&)
+void Turtle::collision(PLAYER&)
 {
 }

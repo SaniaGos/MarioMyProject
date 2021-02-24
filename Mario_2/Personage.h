@@ -27,6 +27,8 @@ public:
 	Personage(Vector2f _pozition, Vector2i size);
 	Sprite getSprite() const;
 	Vector2f getPosition() const;
+	Vector2f getSpeed() const;
+	void setSpeed_y(float speed_y);
 	FloatRect getRect() const;
 	virtual void setFrames(const vector<IntRect>& frames) = 0;
 	virtual void update(float time, Map& map) = 0;
@@ -70,12 +72,13 @@ public:
 	void die();
 	void addCoin();
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
+	//friend void Minor_Personage::collision(PLAYER&);   // спитати не хаває
 };
 
 class Minor_Personage : public Personage
 {
 protected:
-		
+	bool life;
 	vector<IntRect> e_frames;
 	void setFrames(const vector<IntRect>& frames);
 	virtual void updateSprite() = 0;
@@ -83,7 +86,7 @@ public:
 	Minor_Personage() = delete;
 	Minor_Personage(Vector2f _position, Vector2i size);
 	bool getLives() const;
-	virtual void die(PLAYER&) = 0;
+	virtual void collision(PLAYER&) = 0;
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 };
 
@@ -99,7 +102,7 @@ public:
 	Mushrooms(Vector2f _position, Vector2i size);
 
 	void update(float time, Map& map);
-	void die(PLAYER&);
+	void collision(PLAYER&);
 };
 
 class Turtle : public Minor_Personage
@@ -114,9 +117,8 @@ public:
 	Turtle(Vector2f _position, Vector2i size);
 
 	void update(float time, Map& map);
-	void die(PLAYER&);
+	void collision(PLAYER&);
 };
-
 
 class Money : public Minor_Personage
 {
@@ -128,7 +130,7 @@ public:
 	Money() = delete;
 	Money(Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
-	void die(PLAYER&);
+	void collision(PLAYER&);
 };
 
 
