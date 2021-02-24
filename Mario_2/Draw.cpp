@@ -83,7 +83,7 @@ void MyWindow::loadPersonage()
 					IntRect(0, 84, 32, 32),				// кадр 1
 					IntRect(32, 84, 32, 32),			// кадр 2
 					IntRect(64, 84, 32, 32),			// кадр 3
-					IntRect(96, 84, 32, 32)			// кадр 4
+					IntRect(96, 84, 32, 32)				// кадр 4
 					});
 			}
 		}

@@ -6,6 +6,7 @@
 
 using namespace sf;
 using namespace std;
+class Minor_Personage;
 
 class Personage
 {
@@ -28,6 +29,7 @@ public:
 	Vector2f getPosition() const;
 	virtual void setFrames(const vector<IntRect>& frames) = 0;
 	virtual void update(float time, Map& map) = 0;
+	virtual void die() = 0;
 };
 
 class PLAYER : public Personage
@@ -53,7 +55,6 @@ public:
 	PLAYER() = delete;
 	PLAYER(const string jump, const string path, const int frames, const float inSpeed,
 		Vector2f _pozition, Vector2i size);
-	Vector2f getPosition() const;
 
 	void moveUp();
 	void moveDown();
@@ -66,7 +67,8 @@ public:
 	void stopLeft();
 	void setFrames(const vector<IntRect>& rectFrames);
 	void update(float time, Map& map);
-
+	void die();
+	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 };
 
 class Minor_Personage : public Personage
@@ -84,6 +86,7 @@ public:
 		Vector2f _position, Vector2i size);
 	void setFrames(const vector<IntRect>& frames);
 	bool getLives() const;
+	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 };
 
 class Mushrooms_And_Turtles : public Minor_Personage
@@ -100,6 +103,7 @@ public:
 		Vector2f _position, Vector2i size);
 	
 	void update(float time, Map& map);
+	void die();
 };
 
 
@@ -114,4 +118,7 @@ public:
 		const float inSpeed, int lives,
 		Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
+	void die();
 };
+
+

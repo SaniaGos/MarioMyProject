@@ -15,17 +15,8 @@ Personage::Personage(const string path, const int _frames, const float speed,
 	dx = dy = 0.f;
 }
 
-Sprite Personage::getSprite() const
-{
-	return sprite;
-}
-Vector2f Personage::getPosition() const
-{
-	return position;
-}
-
-
-
+Sprite Personage::getSprite() const { return sprite; }
+Vector2f Personage::getPosition() const { return position; }
 
 
 	   // *********** PLAYER ************//
@@ -43,7 +34,6 @@ PLAYER::PLAYER(const string jump, const string path, const int frames, const flo
 	sound.setBuffer(buffer);
 }
 
-Vector2f PLAYER::getPosition() const { return position; }
 void PLAYER::collision_x(Map& map)
 {
 	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
@@ -109,6 +99,10 @@ void PLAYER::update(float time, Map& map)
 	if (currentFrame >= numOfFrame) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
+}
+void PLAYER::die()
+{
+
 }
 void PLAYER::jump()
 {
@@ -211,6 +205,10 @@ void Mushrooms_And_Turtles::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
+void Mushrooms_And_Turtles::die()
+{
+
+}
 void Mushrooms_And_Turtles::updateSprite()
 {
 	sprite.setTexture(texture);
@@ -224,7 +222,7 @@ void Mushrooms_And_Turtles::updateSprite()
 }
 //
 //
-//*********** Money ************//
+	    //*********** Money ************//
 //**********************************************//
 Money::Money(const string _path, const int frames,
 	const float inSpeed, int lives,
@@ -238,9 +236,21 @@ void Money::update(float time, Map & map)
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
+void Money::die()
+{
+	lives -= 1;
+}
 void Money::updateSprite()
 {
 	sprite.setTexture(texture);
 	if (lives > 0)
 		sprite.setTextureRect(e_frames[currentFrame]);
+}
+
+
+
+
+void clashPersonage(PLAYER& Mario, Minor_Personage& personage)
+{
+
 }
