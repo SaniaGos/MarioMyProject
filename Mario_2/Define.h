@@ -12,7 +12,8 @@
 #define BRICK          "Resorses/Tiles.png"
 // шлях до атласа тварин
 #define ENEMIES        "Resorses/Enemies.png"
-
+// MONEY and other
+#define MONEY          "Resorses/Items.png"
 // розмір атласа
 #define ATLAS_WIDTH   32
 #define ATLAS_HEIGHT  32

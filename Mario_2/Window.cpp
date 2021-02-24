@@ -49,5 +49,6 @@ void MyWindow::start()
 		update(TimeMiliSeconds);
 		draw();
 	}
-
+	for (size_t i = 0; i < personage.size(); i++)
+		delete personage[i];
 }

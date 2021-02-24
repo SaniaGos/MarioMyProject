@@ -24,7 +24,7 @@ private:
 
     PLAYER mario;
 
-    vector<MinorPesonage> personage;
+    vector<Minor_Personage*> personage;
 
     void input();
     void update(float TimeMiliSeconds);

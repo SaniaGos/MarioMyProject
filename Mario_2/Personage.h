@@ -25,8 +25,8 @@ public:
 	Personage() = delete;
 	Personage(const string path, const int _frames, const float speed, Vector2f _pozition, Vector2i size);
 	Sprite getSprite() const;
-	int getPosition_x();
-	void setFrames(const vector<IntRect>& frames);
+	Vector2f getPosition() const;
+	virtual void setFrames(const vector<IntRect>& frames) = 0;
 	virtual void update(float time, Map& map) = 0;
 };
 
@@ -64,27 +64,54 @@ public:
 	void stopDown();
 	void stopRight();
 	void stopLeft();
+	void setFrames(const vector<IntRect>& rectFrames);
 	void update(float time, Map& map);
 
 };
 
-class MinorPesonage : public Personage
+class Minor_Personage : public Personage
+{
+protected:
+	
+	int             lives;
+	vector<IntRect> e_frames;
+	
+	virtual void updateSprite() = 0;
+public:
+	Minor_Personage() = delete;
+	Minor_Personage(const string _path, const int frames,
+		const float inSpeed, int lives,
+		Vector2f _position, Vector2i size);
+	void setFrames(const vector<IntRect>& frames);
+	bool getLives() const;
+};
+
+class Mushrooms_And_Turtles : public Minor_Personage
 {
 private:
 	const int       progress;
-	const bool      is_x;
-	bool            life;
 	bool            back;
 	float			start_position;
-	vector<IntRect> e_frames;
-	
-	void updateSprite();
 	void updatePosition(float time, const Map& map);
+	void updateSprite();
 public:
-	MinorPesonage() = delete;
-	MinorPesonage(const string _path, const int frames,
-		const float inSpeed, const int _progress, const bool _is_x,
+	Mushrooms_And_Turtles(const string _path, const int frames,
+		const float inSpeed, const int _progress, int lives,
+		Vector2f _position, Vector2i size);
+	
+	void update(float time, Map& map);
+};
+
+
+class Money : public Minor_Personage
+{
+private:
+
+	void updateSprite();
+public:
+	Money() = delete;
+	Money(const string _path, const int frames,
+		const float inSpeed, int lives,
 		Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
-	void setFrameS(const vector<IntRect>& frames);
 };

@@ -19,25 +19,17 @@ Sprite Personage::getSprite() const
 {
 	return sprite;
 }
-int Personage::getPosition_x()
+Vector2f Personage::getPosition() const
 {
-	return position.x;
-}
-void Personage::setFrames(const vector<IntRect>& rectFrames)
-{
-	for (size_t i = 0; i < rectFrames.size(); i++)
-	{
-		sprite.setTextureRect(rectFrames[i]);
-		frames.push_back(sprite);
-	}
+	return position;
 }
 
 
 
 
 
-// *********** PLAYER ************//
-
+	   // *********** PLAYER ************//
+//**********************************************//
 PLAYER::PLAYER(const string jump, const string path, const int frames, const float inSpeed,
 	Vector2f _pozition, Vector2i size) :
 	Personage(path, frames, inSpeed, _pozition, size),
@@ -157,39 +149,46 @@ void PLAYER::updatePosition(float time, Map& map)
 
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
-
-
-
+void PLAYER::setFrames(const vector<IntRect>& rectFrames)
+{
+	for (size_t i = 0; i < rectFrames.size(); i++)
+	{
+		sprite.setTextureRect(rectFrames[i]);
+		frames.push_back(sprite);
+	}
+}
 
 	//*********** MinorPesonage ************//
-
-MinorPesonage::MinorPesonage(const string _path, const int frames,
-	const float inSpeed, const int _progress, const bool _is_x,
+//**********************************************//
+Minor_Personage::Minor_Personage(const string _path, const int frames,
+	const float inSpeed, int _lives,
 	Vector2f _position, Vector2i size):
-	Personage(_path, frames, inSpeed, _position, size),
-	progress(_progress),
-	is_x(_is_x)
+	Personage(_path, frames, inSpeed, _position, size)
 {
-	life = true;
-	back = false;
-	_is_x ? start_position = _position.x : start_position = _position.y;
+	lives = _lives;
 	proportions.y > ATLAS_HEIGHT ? position.y -= (proportions.y - ATLAS_HEIGHT) : position.y;
+}
+void Minor_Personage::setFrames(const vector<IntRect>& frames)
+{
+	e_frames = frames;
+}
+bool Minor_Personage::getLives() const
+{
+	return lives > 0 ? true : false;
+}
+//
+//
+//*********** Mushrooms_And_Turtles ************//
+//**********************************************//
+Mushrooms_And_Turtles::Mushrooms_And_Turtles(const string _path, const int frames,
+	const float inSpeed, const int _progress, int _lives, Vector2f _position, Vector2i size) :
+	Minor_Personage(_path, frames, inSpeed, _lives, _position, size),
+	progress(_progress), back(false)
+{
+	start_position = _position.x;
 	dx = 0.2;
 }
-
-void MinorPesonage::updateSprite()
-{
-	sprite.setTexture(texture);
-	if (life && !back)
-		sprite.setTextureRect(e_frames[currentFrame + 1]);
-
-	else if (life && back)
-		sprite.setTextureRect(e_frames[currentFrame + 1 + numOfFrame]);
-
-	else sprite.setTextureRect(e_frames[0]);
-}
-
-void MinorPesonage::updatePosition(float time, const Map& map)
+void Mushrooms_And_Turtles::updatePosition(float time, const Map& map)
 {
 	if (!back)
 	{
@@ -205,16 +204,43 @@ void MinorPesonage::updatePosition(float time, const Map& map)
 	}
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
-
-void MinorPesonage::update(float time, Map& map)
+void Mushrooms_And_Turtles::update(float time, Map& map)
 {
 	currentFrame += time * playerSpeed / 80;
 	if (currentFrame >= numOfFrame) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
-
-void MinorPesonage::setFrameS(const vector<IntRect>& frames)
+void Mushrooms_And_Turtles::updateSprite()
 {
-	e_frames = frames;
+	sprite.setTexture(texture);
+	if (lives > 0 && !back)
+		sprite.setTextureRect(e_frames[currentFrame + 1]);
+
+	else if (lives > 0 && back)
+		sprite.setTextureRect(e_frames[currentFrame + 1 + numOfFrame]);
+
+	else sprite.setTextureRect(e_frames[0]);
+}
+//
+//
+//*********** Money ************//
+//**********************************************//
+Money::Money(const string _path, const int frames,
+	const float inSpeed, int lives,
+	Vector2f _position, Vector2i size) :
+	Minor_Personage(_path, frames, inSpeed, lives, _position, size)
+{}
+void Money::update(float time, Map & map)
+{
+	currentFrame += time * playerSpeed / 180;
+	if (currentFrame >= numOfFrame) currentFrame = 0;
+	updateSprite();
+	sprite.setPosition(position.x - map.offset.x, position.y);
+}
+void Money::updateSprite()
+{
+	sprite.setTexture(texture);
+	if (lives > 0)
+		sprite.setTextureRect(e_frames[currentFrame]);
 }
