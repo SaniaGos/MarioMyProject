@@ -27,6 +27,7 @@ public:
 	Personage(Vector2f _pozition, Vector2i size);
 	Sprite getSprite() const;
 	Vector2f getPosition() const;
+	FloatRect getRect() const;
 	virtual void setFrames(const vector<IntRect>& frames) = 0;
 	virtual void update(float time, Map& map) = 0;
 	virtual void die() = 0;
@@ -42,6 +43,7 @@ private:
 	bool        playerRight;
 	bool        playerLeft;
 	bool	    onGround;
+	size_t		coin;
 
 	void jump();
 	void collision_y(Map& map);
@@ -66,6 +68,7 @@ public:
 	void setFrames(const vector<IntRect>& rectFrames);
 	void update(float time, Map& map);
 	void die();
+	void addCoin();
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 };
 
@@ -74,28 +77,44 @@ class Minor_Personage : public Personage
 protected:
 		
 	vector<IntRect> e_frames;
-
+	void setFrames(const vector<IntRect>& frames);
 	virtual void updateSprite() = 0;
 public:
 	Minor_Personage() = delete;
 	Minor_Personage(Vector2f _position, Vector2i size);
-	void setFrames(const vector<IntRect>& frames);
 	bool getLives() const;
+	virtual void die(PLAYER&) = 0;
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 };
 
-class Mushrooms_And_Turtles : public Minor_Personage
+class Mushrooms : public Minor_Personage
 {
 private:
 	bool            back;
 	float			start_position;
 	void updatePosition(float time, const Map& map);
 	void updateSprite();
+	void die();
 public:
-	Mushrooms_And_Turtles(Vector2f _position, Vector2i size);
+	Mushrooms(Vector2f _position, Vector2i size);
 
 	void update(float time, Map& map);
+	void die(PLAYER&);
+};
+
+class Turtle : public Minor_Personage
+{
+private:
+	bool            back;
+	float			start_position;
+	void updatePosition(float time, const Map& map);
+	void updateSprite();
 	void die();
+public:
+	Turtle(Vector2f _position, Vector2i size);
+
+	void update(float time, Map& map);
+	void die(PLAYER&);
 };
 
 
@@ -104,11 +123,12 @@ class Money : public Minor_Personage
 private:
 
 	void updateSprite();
+	void die();
 public:
 	Money() = delete;
 	Money(Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
-	void die();
+	void die(PLAYER&);
 };
 
 

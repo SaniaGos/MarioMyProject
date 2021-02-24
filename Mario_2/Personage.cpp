@@ -1,5 +1,11 @@
 #include "Personage.h"
 
+void clashPersonage(PLAYER& Mario, Minor_Personage& personage)
+{
+	if (Mario.getRect().intersects(personage.getRect()))
+		personage.die(Mario);
+}
+
 Personage::Personage(Vector2f _pozition, Vector2i size) :
 	currentFrame(0),
 	position(_pozition),
@@ -14,9 +20,13 @@ Personage::Personage(Vector2f _pozition, Vector2i size) :
 }
 Sprite Personage::getSprite() const { return sprite; }
 Vector2f Personage::getPosition() const { return position; }
+FloatRect Personage::getRect() const
+{
+	return FloatRect(position, Vector2f(proportions));
+}
 
 
-// ************* PLAYER ************//
+//************** PLAYER ************//
 //**********************************//
 PLAYER::PLAYER(Vector2f _pozition, Vector2i size) :
 	Personage(_pozition, size),
@@ -24,7 +34,8 @@ PLAYER::PLAYER(Vector2f _pozition, Vector2i size) :
 	playerDown(false),
 	playerRight(false),
 	playerLeft(false),
-	onGround(false)
+	onGround(false),
+	coin(0)
 {
 	dx = 0.5;
 	texture.loadFromFile(MARIO_SPRITE);
@@ -79,6 +90,7 @@ void PLAYER::die()
 {
 
 }
+void PLAYER::addCoin() { coin++; }
 void PLAYER::jump()
 {
 	if (onGround)
@@ -146,7 +158,7 @@ bool Minor_Personage::getLives() const
 //
 //*********** Mushrooms_And_Turtles ************//
 //**********************************************//
-Mushrooms_And_Turtles::Mushrooms_And_Turtles(Vector2f _position, Vector2i size) :
+Mushrooms::Mushrooms(Vector2f _position, Vector2i size) :
 	Minor_Personage(_position, size),
 	back(false)
 {
@@ -156,8 +168,18 @@ Mushrooms_And_Turtles::Mushrooms_And_Turtles(Vector2f _position, Vector2i size) 
 	start_position = _position.x;
 	lives = MUSHR_LIVES;
 	dx = 0.2;
+	setFrames(
+		{
+					IntRect(64, 0, 32, 32),          // кадр мертвого
+
+					IntRect(0, 0, 32, 32),           // два кадри руху вправо
+					IntRect(32, 0, 32, 32),
+
+					IntRect(0, 0, 32, 32),           // два кадри руху вліво
+					IntRect(32, 0, 32, 32)
+		});
 }
-void Mushrooms_And_Turtles::updatePosition(float time, const Map& map)
+void Mushrooms::updatePosition(float time, const Map& map)
 {
 	if (!back)
 	{
@@ -173,18 +195,19 @@ void Mushrooms_And_Turtles::updatePosition(float time, const Map& map)
 	}
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
-void Mushrooms_And_Turtles::update(float time, Map& map)
+void Mushrooms::update(float time, Map& map)
 {
 	currentFrame += time * SPEED_ENEMIES / 80;
 	if ((int)currentFrame >= MUSHR_FRAMES) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
-void Mushrooms_And_Turtles::die()
+void Mushrooms::die() {}
+void Mushrooms::die(PLAYER&)
 {
 
 }
-void Mushrooms_And_Turtles::updateSprite()
+void Mushrooms::updateSprite()
 {
 	sprite.setTexture(texture);
 	if (lives > 0 && !back)
@@ -197,8 +220,8 @@ void Mushrooms_And_Turtles::updateSprite()
 }
 //
 //
-		//*********** Money ************//
-//**********************************************//
+//*********** Money ************//
+//******************************//
 Money::Money(Vector2f _position, Vector2i size) :
 	Minor_Personage(_position, size)
 {
@@ -208,18 +231,28 @@ Money::Money(Vector2f _position, Vector2i size) :
 	buffer.loadFromFile(MONEY_SOUND);
 	sound.setBuffer(buffer);
 	lives = MONEY_LIVES;
+	setFrames(
+		{
+					IntRect(0, 84, 32, 32),				// кадр 1
+					IntRect(32, 84, 32, 32),			// кадр 2
+					IntRect(64, 84, 32, 32),			// кадр 3
+					IntRect(96, 84, 32, 32)				// кадр 4
+		});
 }
 void Money::update(float time, Map& map)
 {
 	currentFrame += time * SPEED_ENEMIES / 180;
-	if (currentFrame >= MONEY_FRAMES) currentFrame = 0;
+	if ((int)currentFrame >= MONEY_FRAMES) currentFrame = 0;
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
-void Money::die()
+void Money::die(PLAYER& mario)
 {
-	lives -= 1;
+	sound.play();
+	lives = 0;
+	mario.addCoin();
 }
+void Money::die() {}
 void Money::updateSprite()
 {
 	sprite.setTexture(texture);
@@ -228,21 +261,66 @@ void Money::updateSprite()
 }
 
 
-
-
-void clashPersonage(PLAYER& Mario, Minor_Personage& personage)
+//*********** Turtle ************//
+//******************************//
+Turtle::Turtle(Vector2f _position, Vector2i size) :
+	Minor_Personage(_position, size),
+	back(false)
 {
-	if (FloatRect(Mario.position, Vector2f(Mario.proportions)).intersects(FloatRect(personage.position, Vector2f(personage.proportions))))
-	{
-		if (personage.getLives())
+	texture.loadFromFile(ENEMIES);
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
+	start_position = _position.x;
+	lives = TURTLE_LIVES;
+	dx = 0.2;
+	setFrames(
 		{
-			if (Mario.dy > 0)
-			{
-				Mario.dy = -0.8;
-				personage.die();
-			}
-			else
-				Mario.die();
-		}
+					IntRect(64, 32, 32, 48),          // кадр мертвого
+
+					IntRect(32, 32, -32, 48),         // два кадри руху вправо
+					IntRect(64, 32, -32, 48),
+
+					IntRect(0, 32, 32, 48),           // два кадри руху вліво
+					IntRect(32, 32, 32, 48)
+		});
+}
+void Turtle::updatePosition(float time, const Map& map)
+{
+	if (!back)
+	{
+		position.x += SPEED_ENEMIES * time * dx;
+		if (position.x >= start_position + MAX_DISTANCE)
+			back = true;
 	}
+	else
+	{
+		position.x -= SPEED_ENEMIES * time * dx;
+		if (position.x <= start_position)
+			back = false;
+	}
+	sprite.setPosition(position.x - map.offset.x, position.y);
+}
+void Turtle::updateSprite()
+{
+	sprite.setTexture(texture);
+	if (lives > 0 && !back)
+		sprite.setTextureRect(e_frames[currentFrame + 1]);
+
+	else if (lives > 0 && back)
+		sprite.setTextureRect(e_frames[currentFrame + 1 + TURTLE_FRAMES]);
+
+	else sprite.setTextureRect(e_frames[0]);
+}
+void Turtle::die()
+{
+}
+void Turtle::update(float time, Map& map)
+{
+	currentFrame += time * SPEED_ENEMIES / 80;
+	if ((int)currentFrame >= MUSHR_FRAMES) currentFrame = 0;
+	updateSprite();
+	updatePosition(time, map);
+}
+void Turtle::die(PLAYER&)
+{
 }

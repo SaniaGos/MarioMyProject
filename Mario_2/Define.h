@@ -23,12 +23,13 @@
 
 #define MONEY_FRAMES	   4
 #define MONEY_LIVES 	   1
-#define MONEY_SOUND 	   "Resorses/music/jump.wav"
+#define MONEY_SOUND 	   "Resorses/music/coin.wav"
 
 #define MUSHR_FRAMES	   2
 #define MUSHR_LIVES		   1
 
 #define TURTLE_LIVES	   2
+#define TURTLE_FRAMES	   2
 
 //***** MARIO *****//
 #define MARIO_SPEED        1.f

@@ -3,11 +3,11 @@
 0                                                                                                                                                   0
 0                                                                                                                                                   0
 0                                                                                                                                                   0
-0                   C                                                           C                                                                   0
-0      C                                             C                                                          C                                   0
+0                   C                                              M            C                                                                   0
+0      C                                             C        M   M M                                           C                                   0
 0                                                        M                                                        C                                 0
 0                                   C               M             BBB                                               C                               0
-0                                                            BBB                                                                                    0
+0                                                            BBB                          MMM                                                       0
 0                                                       BBB                                                                                         0
 0                                             K    BBB                                     B                                                        0
 0                                             BBB                                         BBB                                                       0
