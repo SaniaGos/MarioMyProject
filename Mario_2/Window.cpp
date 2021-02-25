@@ -13,6 +13,11 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	buffer.loadFromFile(MUSIC);
 	sound.setBuffer(buffer);
 	font.loadFromFile(FONT);
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setColor(Color::Green);
+	text.setStyle(Text::Bold);
+	text.setPosition(HORIZONTAL_RESOLUTION - 256, 32);
 }
 
 void MyWindow::start()
@@ -31,11 +36,7 @@ void MyWindow::start()
 		});
 	loadPersonage();
 	sound.play();
-	text.setFont(font);
-	text.setCharacterSize(30);
-	text.setColor(Color::Green);
-	text.setStyle(Text::Bold);
-	text.setPosition(HORIZONTAL_RESOLUTION - 256, 32);
+	
 
 	while (myWindow.isOpen())
 	{
