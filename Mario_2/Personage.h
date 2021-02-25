@@ -95,14 +95,14 @@ class Mushrooms : public Minor_Personage
 private:
 	bool            back;
 	float			start_position;
-	void updatePosition(float time, const Map& map);
+	void updatePosition(float time, Map& map);
 	void updateSprite();
 	void die();
 public:
 	Mushrooms(Vector2f _position, Vector2i size);
 
 	void update(float time, Map& map);
-	void collision(PLAYER&);
+	void collision(PLAYER& mario);
 };
 
 class Turtle : public Minor_Personage
@@ -110,14 +110,15 @@ class Turtle : public Minor_Personage
 private:
 	bool            back;
 	float			start_position;
-	void updatePosition(float time, const Map& map);
+	void collision_x(Map& map);
+	void updatePosition(float time, Map& map);
 	void updateSprite();
 	void die();
 public:
 	Turtle(Vector2f _position, Vector2i size);
 
 	void update(float time, Map& map);
-	void collision(PLAYER&);
+	void collision(PLAYER& mario);
 };
 
 class Money : public Minor_Personage
@@ -130,7 +131,7 @@ public:
 	Money() = delete;
 	Money(Vector2f _position, Vector2i size);
 	void update(float time, Map& map);
-	void collision(PLAYER&);
+	void collision(PLAYER& mario);
 };
 
 

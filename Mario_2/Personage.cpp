@@ -155,7 +155,7 @@ void Minor_Personage::setFrames(const vector<IntRect>& frames)
 {
 	e_frames = frames;
 }
-bool Minor_Personage::getLives() const { return life;}
+bool Minor_Personage::getLives() const { return life; }
 //
 //
 //*********** Mushrooms_And_Turtles ************//
@@ -181,7 +181,7 @@ Mushrooms::Mushrooms(Vector2f _position, Vector2i size) :
 					IntRect(32, 0, 32, 32)
 		});
 }
-void Mushrooms::updatePosition(float time, const Map& map)
+void Mushrooms::updatePosition(float time, Map& map)
 {
 	if (lives != 0)
 	{
@@ -293,8 +293,9 @@ Turtle::Turtle(Vector2f _position, Vector2i size) :
 					IntRect(32, 32, 32, 48)
 		});
 }
-void Turtle::updatePosition(float time, const Map& map)
+void Turtle::updatePosition(float time, Map& map)
 {
+	if (lives > 1)
 	if (!back)
 	{
 		position.x += SPEED_ENEMIES * time * dx;
@@ -307,21 +308,38 @@ void Turtle::updatePosition(float time, const Map& map)
 		if (position.x <= start_position)
 			back = false;
 	}
+	collision_x(map);
 	sprite.setPosition(position.x - map.offset.x, position.y);
+}
+void Turtle::collision_x(Map& map)
+{
+	if(!back && position.x > start_position)
+	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
+		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+		{
+			if (map.getMap()[i][j] == 'B' ||
+				map.getMap()[i][j] == '0' ||
+				map.getMap()[i][j] == 'V')
+			{
+				back = true;
+			}
+		}
 }
 void Turtle::updateSprite()
 {
 	sprite.setTexture(texture);
-	if (lives > 0 && !back)
+	if (lives > 1 && !back)
 		sprite.setTextureRect(e_frames[currentFrame + 1]);
 
-	else if (lives > 0 && back)
+	else if (lives > 1 && back)
 		sprite.setTextureRect(e_frames[currentFrame + 1 + TURTLE_FRAMES]);
 
 	else sprite.setTextureRect(e_frames[0]);
 }
 void Turtle::die()
 {
+	lives -= 1; 
+	if (!lives) life = false;
 }
 void Turtle::update(float time, Map& map)
 {
@@ -330,6 +348,11 @@ void Turtle::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
-void Turtle::collision(PLAYER&)
+void Turtle::collision(PLAYER& mario)
 {
+	if (mario.getSpeed().y > 0)
+	{
+		mario.setSpeed_y(-0.8);
+		die();
+	}
 }

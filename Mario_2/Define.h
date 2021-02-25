@@ -17,7 +17,7 @@
 
 //**** ENEMIES ****//
 #define SPEED_ENEMIES      1.f
-#define MAX_DISTANCE	   196
+#define MAX_DISTANCE	   256
 #define ENEMIES		       "Resorses/Enemies.png"
 #define ITEMS			   "Resorses/Items.png"
 
