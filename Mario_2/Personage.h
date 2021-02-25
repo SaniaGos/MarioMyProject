@@ -71,6 +71,7 @@ public:
 	void update(float time, Map& map);
 	void die();
 	void addCoin();
+	size_t getCoin() const;
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
 	//friend void Minor_Personage::collision(PLAYER&);   // спитати не хаває
 };

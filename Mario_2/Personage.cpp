@@ -96,6 +96,7 @@ void PLAYER::die()
 
 }
 void PLAYER::addCoin() { coin++; }
+size_t PLAYER::getCoin() const { return coin; }
 void PLAYER::jump()
 {
 	if (onGround)

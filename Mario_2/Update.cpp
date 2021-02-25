@@ -10,6 +10,7 @@ void MyWindow::update(float TimeMiliSeconds)
 		personage[i]->update(TimeMiliSeconds, map);
 	}
 	clash_Personage();
+	text.setString("BitCoin: " + to_string(mario.getCoin()));
 }
 void MyWindow::clash_Personage()
 {

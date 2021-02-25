@@ -1,6 +1,6 @@
 #pragma once
 // роздільна здатність
-#define HORIZONTAL_RESOLUTION 800
+#define HORIZONTAL_RESOLUTION 1000
 #define VERTICAL_RESOLUTION   600
 
 // шлях заднього фону
@@ -11,6 +11,7 @@
 //**** MAP ****//
 #define MAP1			   "Resorses/Map/Level_1.txt"
 #define MAP_ATLAS          "Resorses/Tiles.png"
+#define FONT	           "Resorses/Fonts/some_font.ttf"
 #define ATLAS_WIDTH		   32
 #define ATLAS_HEIGHT	   32
 #define SPEED_GAME         1.f

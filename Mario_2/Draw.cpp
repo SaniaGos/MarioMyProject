@@ -7,7 +7,7 @@ void MyWindow::draw()
 	drawMap();								// малюємо карту
 	myWindow.draw(mario.getSprite());		// малюєм Маріо
 	drawEnemies();							// малюєм другорядних героїв
-
+	myWindow.draw(text);
 	myWindow.display();						// відображаєм картину
 }
 void MyWindow::drawMap()
