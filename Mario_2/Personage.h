@@ -21,6 +21,7 @@ protected:
 	Sprite			sprite;
 	vector<Sprite>	frames;
 	int             lives;
+	bool			inGame;
 
 public:
 	Personage() = delete;

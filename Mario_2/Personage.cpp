@@ -14,7 +14,8 @@ Personage::Personage(Vector2f _pozition, Vector2i size) :
 	sprite(),
 	buffer(),
 	sound(),
-	lives(0)
+	lives(0),
+	inGame(true)
 {
 	dx = dy = 0.f;
 }
