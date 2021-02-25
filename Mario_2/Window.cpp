@@ -45,8 +45,8 @@ void MyWindow::start()
 		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED_GAME;
 
 		if (TimeMiliSeconds > 5) TimeMiliSeconds = 5;           // регулюєм швидкість гри
-
-		Event event;                                   // якась шняга OpenGL, щоб можна було вікно закривати і переміщати, а то без неї вікно завмирає
+		
+		Event event;											// якась шняга OpenGL, щоб можна було вікно закривати і переміщати, а то без неї вікно завмирає
 		while (myWindow.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				myWindow.close();
@@ -54,6 +54,9 @@ void MyWindow::start()
 
 		input();
 		update(TimeMiliSeconds);
+		int sleep;
+		sleep = clock.getElapsedTime().asMicroseconds();
+		sf::sleep(sf::microseconds(5000 - sleep));
 		draw();
 	}
 	for (size_t i = 0; i < personage.size(); i++)

@@ -1,3 +1,4 @@
 ﻿  Window.cpp
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(43,58): warning C4244: =: преобразование "sf::Int64" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(58,48): warning C4244: =: преобразование "sf::Int64" в "int", возможна потеря данных
   Mario_2.vcxproj -> C:\Users\SaniaGos\source\repos\Mario_2\Debug\Mario_2.exe
