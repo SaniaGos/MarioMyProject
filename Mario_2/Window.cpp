@@ -41,6 +41,9 @@ void MyWindow::start()
 	while (myWindow.isOpen())
 	{
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
+		sf::sleep(sf::microseconds(5000 - TimeMiliSeconds));
+
+
 		clock.restart();
 		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED_GAME;
 
@@ -54,9 +57,6 @@ void MyWindow::start()
 
 		input();
 		update(TimeMiliSeconds);
-		int sleep;
-		sleep = clock.getElapsedTime().asMicroseconds();
-		sf::sleep(sf::microseconds(5000 - sleep));
 		draw();
 	}
 	for (size_t i = 0; i < personage.size(); i++)
