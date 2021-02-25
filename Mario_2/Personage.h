@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Define.h"
@@ -14,8 +14,8 @@ protected:
 	SoundBuffer		buffer;
 	Sound			sound;
 	float			currentFrame;
-	Vector2f		position;             // позиція персонажа
-	Vector2i		proportions;          // розмір спрайту персонажа
+	Vector2f		position;             // 
+	Vector2i		proportions;          // 
 	Texture			texture;
 	float			dx, dy;
 	Sprite			sprite;
@@ -74,7 +74,6 @@ public:
 	void addCoin();
 	size_t getCoin() const;
 	friend void clashPersonage(PLAYER& Mario, Minor_Personage& personage);
-	//friend void Minor_Personage::collision(PLAYER&);   // спитати не хаває
 };
 
 class Minor_Personage : public Personage
@@ -135,5 +134,3 @@ public:
 	void update(float time, Map& map);
 	void collision(PLAYER& mario);
 };
-
-

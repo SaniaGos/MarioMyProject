@@ -41,7 +41,7 @@ void MyWindow::start()
 	while (myWindow.isOpen())
 	{
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
-		sf::sleep(sf::microseconds(5000 - TimeMiliSeconds));
+		sf::sleep(sf::microseconds(4000 - TimeMiliSeconds));
 
 
 		clock.restart();
