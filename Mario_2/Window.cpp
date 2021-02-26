@@ -38,7 +38,6 @@ void MyWindow::start()
 	loadPersonage();
 	sound.play();
 	
-
 	while (myWindow.isOpen())
 	{
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
