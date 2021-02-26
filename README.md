@@ -1,6 +1,7 @@
 # Mario Example code
  _This is a case study_
- SFML library used
+### SFML library used for win32
+##### The project is loaded and launched without any settings.
 
 ## License
 MIT
