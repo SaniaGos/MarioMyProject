@@ -21,10 +21,3 @@ void Map::loadMap(const string path)
 Map::Map() : offset(0, 0) {}
 
 vector<string>& Map::getMap() { return map; }
-
-void Map::update(RenderWindow& myWindow)
-{
-
-
-
-}

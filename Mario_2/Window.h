@@ -4,6 +4,8 @@
 #include "Define.h"
 #include "Personage.h"
 #include "ScreenFrames.h"
+#include "GemeConfig.h"
+
 
 #pragma warning( disable : 4996)
 using namespace sf;

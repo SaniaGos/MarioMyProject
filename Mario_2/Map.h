@@ -10,13 +10,10 @@ class Map
 {
 private:
     vector<string> map;
-   
 public:
 
     Map();
     Vector2f offset;
     vector<string>& getMap();
     void loadMap(string path);
-    void update(RenderWindow& myWindow);
-
 };
