@@ -33,7 +33,7 @@
 #define TURTLE_FRAMES	   2
 
 //***** MARIO *****//
-#define MARIO_SPEED        1.f
+#define MARIO_SPEED        1.5f
 #define MARIO_FRAMES       3
 #define MARIO_SPRITE       "Resorses/Mario.png"
 #define MARIO_JUMP         "Resorses/music/jump.wav"

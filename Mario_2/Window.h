@@ -3,6 +3,8 @@
 #include "Map.h"
 #include "Define.h"
 #include "Personage.h"
+#include "ScreenFrames.h"
+
 #pragma warning( disable : 4996)
 using namespace sf;
 
@@ -24,6 +26,8 @@ private:
 
 	Font font;
 	Text text;
+
+	ScreenFrames frames;
 
 	PLAYER mario;
 

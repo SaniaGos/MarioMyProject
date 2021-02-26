@@ -1,7 +1,8 @@
 #include "Window.h"
 
 MyWindow::MyWindow() :// конструктор ігрового вікна
-	mario(Vector2f(100, 100), Vector2i(32, 32))
+	mario(Vector2f(100, 100), Vector2i(32, 32)),
+	frames()
 {
 	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
@@ -41,13 +42,11 @@ void MyWindow::start()
 	while (myWindow.isOpen())
 	{
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
-		sf::sleep(sf::microseconds(4000 - TimeMiliSeconds));
-
 
 		clock.restart();
 		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED_GAME;
 
-		if (TimeMiliSeconds > 5) TimeMiliSeconds = 5;           // регулюєм швидкість гри
+		if (TimeMiliSeconds > 20) TimeMiliSeconds = 20;           // регулюєм швидкість гри
 		
 		Event event;											// якась шняга OpenGL, щоб можна було вікно закривати і переміщати, а то без неї вікно завмирає
 		while (myWindow.pollEvent(event)) {
@@ -57,6 +56,8 @@ void MyWindow::start()
 
 		input();
 		update(TimeMiliSeconds);
+		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
+		sf::sleep(sf::microseconds(12000 - TimeMiliSeconds));
 		draw();
 	}
 	for (size_t i = 0; i < personage.size(); i++)
