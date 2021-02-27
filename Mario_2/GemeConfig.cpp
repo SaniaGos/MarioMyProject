@@ -26,14 +26,22 @@ void GameConfig::fillData()
 	// ****** Display ****** //
 	try
 	{
-		mario.life = stoi(config.at("mario_life"));
+		map.horizontal_resolution = stoi(config.at("horizontal_resolution"));
 	}
 	catch (std::exception& ex)
 	{
-		mario.life = 3;
-		cout << "mario life no find " << ex.what() << endl;
+		map.horizontal_resolution = 800;
+		cout << "horizontal resolution no find " << ex.what() << endl;
 	}
-	
+	try
+	{
+		map.vertical_resolution = stoi(config.at("vertical_resolution"));
+	}
+	catch (std::exception& ex)
+	{
+		map.vertical_resolution = 600;
+		cout << "vertical resolution no find " << ex.what() << endl;
+	}
 	
 	
 	

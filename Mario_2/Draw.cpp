@@ -18,7 +18,7 @@ void MyWindow::drawMap()
 		for (size_t j = 0; j < map.getMap()[i].size(); j++)
 		{
 			if (j * ATLAS_WIDTH < map.offset.x - ATLAS_WIDTH ||				// пришвидчує обробку кадру, бо бере до уваги лиш частину карти, яка відображається
-				j * ATLAS_WIDTH > map.offset.x + HORIZONTAL_RESOLUTION)
+				j * ATLAS_WIDTH > map.offset.x + GlobalConfig::GetConfig().map.horizontal_resolution)
 				continue;
 			if (map.getMap()[i][j] == 'B') m_Sprite.setTextureRect(IntRect(32, 0, ATLAS_WIDTH, ATLAS_HEIGHT));
 			else if (map.getMap()[i][j] == 'C') m_Sprite.setTextureRect(IntRect(82, 160, ATLAS_WIDTH * 2, ATLAS_HEIGHT * 1.5));
@@ -37,8 +37,8 @@ void MyWindow::drawEnemies()
 	{
 		if (personage[i]->getLives())
 		{
-			if (personage[i]->getPosition().x > (mario.getPosition().x - HORIZONTAL_RESOLUTION) &&
-				personage[i]->getPosition().x < (mario.getPosition().x + HORIZONTAL_RESOLUTION))
+			if (personage[i]->getPosition().x > (mario.getPosition().x - GlobalConfig::GetConfig().map.horizontal_resolution) &&
+				personage[i]->getPosition().x < (mario.getPosition().x + GlobalConfig::GetConfig().map.horizontal_resolution))
 				myWindow.draw(personage[i]->getSprite());
 		}
 	}

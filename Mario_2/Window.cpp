@@ -4,7 +4,7 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	mario(Vector2f(100, 100), Vector2i(32, 32)),
 	frames()
 {
-	myWindow.create(VideoMode(HORIZONTAL_RESOLUTION, VERTICAL_RESOLUTION), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
+	myWindow.create(VideoMode(GlobalConfig::GetConfig().map.horizontal_resolution, GlobalConfig::GetConfig().map.vertical_resolution), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
 	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
 	myBackgroundSprite.setTexture(myBackgroundTexture);                                             // загружаєм картинку в спрайт заднього фону
 	map.loadMap(MAP1);
@@ -18,7 +18,7 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	text.setCharacterSize(30);
 	text.setColor(Color::Green);
 	text.setStyle(Text::Bold);
-	text.setPosition(HORIZONTAL_RESOLUTION - 256, 32);
+	text.setPosition(GlobalConfig::GetConfig().map.horizontal_resolution - 256, 32);
 }
 
 void MyWindow::start()

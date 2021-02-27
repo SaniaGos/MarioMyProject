@@ -11,8 +11,8 @@ struct ConfigMap
 {
 	string music;
 	string background;
-	size_t horizontal_rezolution;
-	size_t vertical_rezolution;
+	size_t horizontal_resolution;
+	size_t vertical_resolution;
 	string level_1;
 	string map_atlas;
 	string font;

@@ -5,8 +5,8 @@ void MyWindow::update(float TimeMiliSeconds)
 	mario.update(TimeMiliSeconds, map);
 	for (size_t i = 0; i < personage.size(); i++)
 	{
-		if (personage[i]->getPosition().x > (mario.getPosition().x - HORIZONTAL_RESOLUTION) &&
-			personage[i]->getPosition().x < (mario.getPosition().x + HORIZONTAL_RESOLUTION))
+		if (personage[i]->getPosition().x > (mario.getPosition().x - GlobalConfig::GetConfig().map.horizontal_resolution) &&
+			personage[i]->getPosition().x < (mario.getPosition().x + GlobalConfig::GetConfig().map.horizontal_resolution))
 		personage[i]->update(TimeMiliSeconds, map);
 	}
 	clash_Personage();

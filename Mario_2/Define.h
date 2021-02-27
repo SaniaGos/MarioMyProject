@@ -1,7 +1,9 @@
 #pragma once
 // роздільна здатність
-#define HORIZONTAL_RESOLUTION 1000
-#define VERTICAL_RESOLUTION   600
+//#define GlobalConfig::GetConfig().map.horizontal_resolution 1000
+//#define GlobalConfig::GetConfig().map.vertical_resolution   600
+
+
 
 // шлях заднього фону
 #define MY_BACKGROUND  "Resorses/Sky.png"

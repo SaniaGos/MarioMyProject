@@ -131,9 +131,9 @@ void PLAYER::updatePosition(float time, Map& map)
 	}
 	collision_y(map);
 
-	if (position.x > HORIZONTAL_RESOLUTION / 2 &&
-		position.x < (map.getMap()[0].size() * ATLAS_HEIGHT) - HORIZONTAL_RESOLUTION / 2)
-		map.offset.x = position.x - HORIZONTAL_RESOLUTION / 2;
+	if (position.x > GlobalConfig::GetConfig().map.horizontal_resolution / 2 &&
+		position.x < (map.getMap()[0].size() * ATLAS_HEIGHT) - GlobalConfig::GetConfig().map.horizontal_resolution / 2)
+		map.offset.x = position.x - GlobalConfig::GetConfig().map.horizontal_resolution / 2;
 
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
