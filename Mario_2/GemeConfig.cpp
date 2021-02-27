@@ -154,12 +154,130 @@ void GameConfig::fillData()
 	}
 
 	// ****** Enemies ****** //
+	try
+	{
+		enemieSpeed = stoi(config.at("enemie_speed"));
+	}
+	catch (std::exception& ex)
+	{
+		enemieSpeed = 1;
+		cout << "mushroom life no find " << ex.what() << endl;
+	}
+	try
+	{
+		maxDistance = stoi(config.at("maxDistance"));
+	}
+	catch (std::exception& ex)
+	{
+		maxDistance = 256;
+		cout << "maxDistance no find " << ex.what() << endl;
+	}
+	try
+	{
+		enemie_atlas = config.at("enemie_atlas");
+	}
+	catch (std::exception& ex)
+	{
+		enemie_atlas = "Resorses/Enemies.png";
+		cout << "enemie atlas no find " << ex.what() << endl;
+	}
+	try
+	{
+		item_atlas = config.at("item_atlas");
+	}
+	catch (std::exception& ex)
+	{
+		item_atlas = "Resorses/Items.png";
+		cout << "item atlas no find " << ex.what() << endl;
+	}
+	
+	// ****** Money ******//
+	try
+	{
+		money.life = stoi(config.at("money_life"));
+	}
+	catch (std::exception& ex)
+	{
+		money.life = 1;
+		cout << "money life no find " << ex.what() << endl;
+	}
+	try
+	{
+		money.speed = stof(config.at("money_speed"));    // <stof> string to float
+	}
+	catch (std::exception& ex)
+	{
+		money.speed = 1.f;
+		cout << "money speed no find " << ex.what() << endl;
+	}
+	try
+	{
+		money.music = config.at("money_music");
+	}
+	catch (std::exception& ex)
+	{
+		money.music = "Resorses/music/coin.wav";
+		cout << "money music no find " << ex.what() << endl;
+	}
 
-
-
-
-
-
+	// ****** Mushrooms ****** //
+	try
+	{
+		mushroom.life = stoi(config.at("mushroom_life"));
+	}
+	catch (std::exception& ex)
+	{
+		mushroom.life = 1;
+		cout << "mushroom life no find " << ex.what() << endl;
+	}
+	try
+	{
+		mushroom.speed = stof(config.at("mushroom_speed"));    // <stof> string to float
+	}
+	catch (std::exception& ex)
+	{
+		mushroom.speed = 1.f;
+		cout << "mushroom speed no find " << ex.what() << endl;
+	}
+	try
+	{
+		mushroom.music = config.at("mushroom_music");
+	}
+	catch (std::exception& ex)
+	{
+		mushroom.music = "";
+		cout << "mushroom music no find " << ex.what() << endl;
+	}
+	
+	// ****** Turtle ****** //
+	try
+	{
+		turtle.life = stoi(config.at("turtle_life"));
+	}
+	catch (std::exception& ex)
+	{
+		turtle.life = 2;
+		cout << "turtle life no find " << ex.what() << endl;
+	}
+	try
+	{
+		turtle.speed = stof(config.at("turtle_speed"));    // <stof> string to float
+	}
+	catch (std::exception& ex)
+	{
+		turtle.speed = 1.f;
+		cout << "turtle speed no find " << ex.what() << endl;
+	}
+	try
+	{
+		turtle.music = config.at("turtle_music");
+	}
+	catch (std::exception& ex)
+	{
+		turtle.music = "";
+		cout << "turtle music no find " << ex.what() << endl;
+	}
+	
 }
 
 pair<string, string> GameConfig::split(string str)

@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Map.h"
-#include "Define.h"
 #include "Personage.h"
 #include "ScreenFrames.h"
 #include "GemeConfig.h"

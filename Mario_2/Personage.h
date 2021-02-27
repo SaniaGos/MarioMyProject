@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Define.h"
 #include "Map.h"
 #include "GemeConfig.h"
 

@@ -156,7 +156,6 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Define.h" />
     <ClInclude Include="GemeConfig.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Personage.h" />

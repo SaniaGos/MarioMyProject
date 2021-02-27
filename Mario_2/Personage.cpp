@@ -166,11 +166,11 @@ Mushrooms::Mushrooms(Vector2f _position, Vector2i size) :
 	Minor_Personage(_position, size),
 	back(false)
 {
-	texture.loadFromFile(ENEMIES);
+	texture.loadFromFile(GlobalConfig::GetConfig().enemie_atlas);
 	sprite.setTexture(texture);
 	sprite.setPosition(position);
 	start_position = _position.x;
-	lives = MUSHR_LIVES;
+	lives = GlobalConfig::GetConfig().mushroom.life;
 	dx = 0.2;
 	setFrames(
 		{
@@ -189,13 +189,13 @@ void Mushrooms::updatePosition(float time, Map& map)
 	{
 		if (!back)
 		{
-			position.x += SPEED_ENEMIES * time * dx;
-			if (position.x >= start_position + MAX_DISTANCE)
+			position.x += GlobalConfig::GetConfig().enemieSpeed * time * dx;
+			if (position.x >= start_position + GlobalConfig::GetConfig().maxDistance)
 				back = true;
 		}
 		else
 		{
-			position.x -= SPEED_ENEMIES * time * dx;
+			position.x -= GlobalConfig::GetConfig().enemieSpeed * time * dx;
 			if (position.x <= start_position)
 				back = false;
 		}
@@ -204,7 +204,7 @@ void Mushrooms::updatePosition(float time, Map& map)
 }
 void Mushrooms::update(float time, Map& map)
 {
-	currentFrame += time * SPEED_ENEMIES / 80;
+	currentFrame += time * GlobalConfig::GetConfig().enemieSpeed / 80;
 	if ((int)currentFrame >= 2) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
@@ -236,12 +236,12 @@ void Mushrooms::updateSprite()
 Money::Money(Vector2f _position, Vector2i size) :
 	Minor_Personage(_position, size)
 {
-	texture.loadFromFile(ITEMS);
+	texture.loadFromFile(GlobalConfig::GetConfig().item_atlas);
 	sprite.setTexture(texture);
 	sprite.setPosition(position);
-	buffer.loadFromFile(MONEY_SOUND);
+	buffer.loadFromFile(GlobalConfig::GetConfig().money.music);
 	sound.setBuffer(buffer);
-	lives = MONEY_LIVES;
+	lives = GlobalConfig::GetConfig().money.life;
 	setFrames(
 		{
 					IntRect(0, 84, 32, 32),				// кадр 1
@@ -252,7 +252,7 @@ Money::Money(Vector2f _position, Vector2i size) :
 }
 void Money::update(float time, Map& map)
 {
-	currentFrame += time * SPEED_ENEMIES / 180;
+	currentFrame += time * GlobalConfig::GetConfig().enemieSpeed / 180;
 	if ((int)currentFrame >= 4) currentFrame = 0;
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
@@ -278,11 +278,11 @@ Turtle::Turtle(Vector2f _position, Vector2i size) :
 	Minor_Personage(_position, size),
 	back(false)
 {
-	texture.loadFromFile(ENEMIES);
+	texture.loadFromFile(GlobalConfig::GetConfig().enemie_atlas);
 	sprite.setTexture(texture);
 	sprite.setPosition(position);
 	start_position = _position.x;
-	lives = TURTLE_LIVES;
+	lives = GlobalConfig::GetConfig().turtle.life;
 	dx = 0.2;
 	setFrames(
 		{
@@ -300,13 +300,13 @@ void Turtle::updatePosition(float time, Map& map)
 	if (lives > 1)
 	if (!back)
 	{
-		position.x += SPEED_ENEMIES * time * dx;
-		if (position.x >= start_position + MAX_DISTANCE)
+		position.x += GlobalConfig::GetConfig().enemieSpeed * time * dx;
+		if (position.x >= start_position + GlobalConfig::GetConfig().maxDistance)
 			back = true;
 	}
 	else
 	{
-		position.x -= SPEED_ENEMIES * time * dx;
+		position.x -= GlobalConfig::GetConfig().enemieSpeed * time * dx;
 		if (position.x <= start_position)
 			back = false;
 	}
@@ -345,7 +345,7 @@ void Turtle::die()
 }
 void Turtle::update(float time, Map& map)
 {
-	currentFrame += time * SPEED_ENEMIES / 80;
+	currentFrame += time * GlobalConfig::GetConfig().enemieSpeed / 80;
 	if ((int)currentFrame >= 2) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);

@@ -45,6 +45,7 @@ public:
 	string enemie_atlas;
 	string item_atlas;
 	size_t maxDistance;
+	size_t enemieSpeed;
 };
 
 class GlobalConfig
