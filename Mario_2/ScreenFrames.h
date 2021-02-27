@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Define.h"
+#include "GemeConfig.h"
 #pragma warning( disable : 4996)
 
 

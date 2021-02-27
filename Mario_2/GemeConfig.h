@@ -44,6 +44,7 @@ public:
 	string mario_atlas;
 	string enemie_atlas;
 	string item_atlas;
+	size_t maxDistance;
 };
 
 class GlobalConfig

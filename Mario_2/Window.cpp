@@ -5,15 +5,15 @@ MyWindow::MyWindow() :// конструктор ігрового вікна
 	frames()
 {
 	myWindow.create(VideoMode(GlobalConfig::GetConfig().map.horizontal_resolution, GlobalConfig::GetConfig().map.vertical_resolution), "Mario By SaniaGos");    // з define берем розмір вікна і даєм йому назву
-	myBackgroundTexture.loadFromFile(MY_BACKGROUND);                                                // берем картинку заднього фону
+	myBackgroundTexture.loadFromFile(GlobalConfig::GetConfig().map.background);                                                // берем картинку заднього фону
 	myBackgroundSprite.setTexture(myBackgroundTexture);                                             // загружаєм картинку в спрайт заднього фону
-	map.loadMap(MAP1);
-	texture.loadFromFile(MAP_ATLAS);
+	map.loadMap(GlobalConfig::GetConfig().map.level_1);
+	texture.loadFromFile(GlobalConfig::GetConfig().map.map_atlas);
 	m_Sprite.setTexture(texture);
 	TimeMiliSeconds = 0;
-	buffer.loadFromFile(MUSIC);
+	buffer.loadFromFile(GlobalConfig::GetConfig().map.music);
 	sound.setBuffer(buffer);
-	font.loadFromFile(FONT);
+	font.loadFromFile(GlobalConfig::GetConfig().map.font);
 	text.setFont(font);
 	text.setCharacterSize(30);
 	text.setColor(Color::Green);
@@ -43,7 +43,7 @@ void MyWindow::start()
 		TimeMiliSeconds = clock.getElapsedTime().asMicroseconds();             // берем час в мілісекундах від початку гри
 
 		clock.restart();
-		TimeMiliSeconds = TimeMiliSeconds / 2000 * SPEED_GAME;
+		TimeMiliSeconds = TimeMiliSeconds / 2000 * GlobalConfig::GetConfig().map.speed;
 
 		if (TimeMiliSeconds > 20) TimeMiliSeconds = 20;           // регулюєм швидкість гри
 		

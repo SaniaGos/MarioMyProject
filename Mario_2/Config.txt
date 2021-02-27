@@ -2,4 +2,4 @@ horizontal_resolution:1000
 vertical_resolution:600
 
 mario_speed:1.5
-mario:mario
+mario_life:3

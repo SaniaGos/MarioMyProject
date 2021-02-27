@@ -1,11 +1,11 @@
 ﻿  Draw.cpp
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(24,111): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(24,171): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
           with
           [
               T=int
           ]
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(28,51): warning C4244: аргумент: преобразование "size_t" в "float", возможна потеря данных
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(55,34): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(55,64): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
           with
           [
               T=float
@@ -15,7 +15,7 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(55,17): warning C4244: �
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(58,34): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(58,64): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
           with
           [
               T=float
@@ -25,7 +25,7 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(58,17): warning C4244: �
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(61,34): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Draw.cpp(61,64): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
           with
           [
               T=float
@@ -50,16 +50,12 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(56,14): warning C42
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(61,53): warning C4244: =: преобразование "T" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(61,83): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
           with
-          [
-              T=int
-          ]
-          and
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(62,52): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(62,82): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
           with
           [
               T=float
@@ -74,16 +70,12 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(70,14): warning C42
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(75,49): warning C4244: =: преобразование "T" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(75,79): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
           with
-          [
-              T=int
-          ]
-          and
           [
               T=float
           ]
-C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(76,49): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(76,79): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
           with
           [
               T=float
@@ -91,6 +83,7 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(76,49): warning C42
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(113,32): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(116,36): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(129,62): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(154,16): warning C4018: >: несоответствие типов со знаком и без знака
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(174,10): warning C4305: =: усечение из "double" в "float"
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(217,24): warning C4305: аргумент: усечение из "double" в "float"
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(225,47): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
@@ -110,7 +103,6 @@ C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(320,14): warning C4
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(334,47): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(337,51): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(357,24): warning C4305: аргумент: усечение из "double" в "float"
-  ScreenFrames.cpp
   Update.cpp
   Window.cpp
 C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(21,71): warning C4244: аргумент: преобразование "size_t" в "float", возможна потеря данных

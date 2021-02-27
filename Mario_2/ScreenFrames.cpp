@@ -6,7 +6,7 @@ ScreenFrames::ScreenFrames() :
 	time()
 {
 	time.restart();
-	framesFont.loadFromFile(FONT);
+	framesFont.loadFromFile(GlobalConfig::GetConfig().map.font);
 	framesText.setFont(framesFont);
 	framesText.setCharacterSize(30);
 	framesText.setColor(Color::Green);

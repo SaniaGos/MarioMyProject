@@ -52,28 +52,28 @@ PLAYER::PLAYER(Vector2f _pozition, Vector2i size) :
 }
 void PLAYER::collision_x(Map& map)
 {
-	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
-		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+	for (int i = position.y / GlobalConfig::GetConfig().map.atlas_height; i < (position.y + proportions.y) / GlobalConfig::GetConfig().map.atlas_height; i++)
+		for (int j = position.x / GlobalConfig::GetConfig().map.atlas_width; j < (position.x + proportions.x) / GlobalConfig::GetConfig().map.atlas_width; j++)
 		{
 			if (map.getMap()[i][j] == 'B' ||
 				map.getMap()[i][j] == '0')
 			{
-				if (playerRight) { position.x = j * ATLAS_WIDTH - proportions.x; }
-				if (playerLeft) { position.x = j * ATLAS_WIDTH + ATLAS_WIDTH; }
+				if (playerRight) { position.x = j * GlobalConfig::GetConfig().map.atlas_width - proportions.x; }
+				if (playerLeft) { position.x = j * GlobalConfig::GetConfig().map.atlas_width + GlobalConfig::GetConfig().map.atlas_width; }
 			}
 		}
 }
 void PLAYER::collision_y(Map& map)
 {
 	onGround = false;
-	for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
-		for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
+	for (int j = position.x / GlobalConfig::GetConfig().map.atlas_width; j < (position.x + proportions.x) / GlobalConfig::GetConfig().map.atlas_width; j++)
+		for (int i = position.y / GlobalConfig::GetConfig().map.atlas_height; i < (position.y + proportions.y) / GlobalConfig::GetConfig().map.atlas_height; i++)
 		{
 			if (map.getMap()[i][j] == 'B' ||
 				map.getMap()[i][j] == '0')
 			{
-				if (dy > 0) { position.y = i * ATLAS_HEIGHT - proportions.y, dy = 0, onGround = true; }
-				if (dy < 0) { position.y = i * ATLAS_HEIGHT + ATLAS_HEIGHT, dy = 0; }
+				if (dy > 0) { position.y = i * GlobalConfig::GetConfig().map.atlas_height - proportions.y, dy = 0, onGround = true; }
+				if (dy < 0) { position.y = i * GlobalConfig::GetConfig().map.atlas_height + GlobalConfig::GetConfig().map.atlas_height, dy = 0; }
 			}
 		}
 }
@@ -132,7 +132,7 @@ void PLAYER::updatePosition(float time, Map& map)
 	collision_y(map);
 
 	if (position.x > GlobalConfig::GetConfig().map.horizontal_resolution / 2 &&
-		position.x < (map.getMap()[0].size() * ATLAS_HEIGHT) - GlobalConfig::GetConfig().map.horizontal_resolution / 2)
+		position.x < (map.getMap()[0].size() * GlobalConfig::GetConfig().map.atlas_height) - GlobalConfig::GetConfig().map.horizontal_resolution / 2)
 		map.offset.x = position.x - GlobalConfig::GetConfig().map.horizontal_resolution / 2;
 
 	sprite.setPosition(position.x - map.offset.x, position.y);
@@ -151,7 +151,7 @@ void PLAYER::setFrames(const vector<IntRect>& rectFrames)
 Minor_Personage::Minor_Personage(Vector2f _position, Vector2i size) :
 	Personage(_position, size), life(true)
 {
-	proportions.y > ATLAS_HEIGHT ? position.y -= (proportions.y - ATLAS_HEIGHT) : position.y;
+	proportions.y > GlobalConfig::GetConfig().map.atlas_height ? position.y -= (proportions.y - GlobalConfig::GetConfig().map.atlas_height) : position.y;
 }
 void Minor_Personage::setFrames(const vector<IntRect>& frames)
 {
@@ -316,8 +316,8 @@ void Turtle::updatePosition(float time, Map& map)
 void Turtle::collision_x(Map& map)
 {
 	if(!back && position.x > start_position)
-	for (int i = position.y / ATLAS_HEIGHT; i < (position.y + proportions.y) / ATLAS_HEIGHT; i++)
-		for (int j = position.x / ATLAS_WIDTH; j < (position.x + proportions.x) / ATLAS_WIDTH; j++)
+	for (int i = position.y / GlobalConfig::GetConfig().map.atlas_height; i < (position.y + proportions.y) / GlobalConfig::GetConfig().map.atlas_height; i++)
+		for (int j = position.x / GlobalConfig::GetConfig().map.atlas_width; j < (position.x + proportions.x) / GlobalConfig::GetConfig().map.atlas_width; j++)
 		{
 			if (map.getMap()[i][j] == 'B' ||
 				map.getMap()[i][j] == '0' ||

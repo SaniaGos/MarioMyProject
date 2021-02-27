@@ -42,9 +42,78 @@ void GameConfig::fillData()
 		map.vertical_resolution = 600;
 		cout << "vertical resolution no find " << ex.what() << endl;
 	}
-	
-	
-	
+	try
+	{
+		map.background = config.at("background");
+	}
+	catch (std::exception& ex)
+	{
+		map.background = "Resorses/Sky.png";
+		cout << "background no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.music = config.at("map_music");
+	}
+	catch (std::exception& ex)
+	{
+		map.music = "Resorses/music/Theme.ogg";
+		cout << "map music no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.level_1 = config.at("level_1");
+	}
+	catch (std::exception& ex)
+	{
+		map.level_1 = "Resorses/Map/Level_1.txt";
+		cout << "map level no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.map_atlas = config.at("map_atlas");
+	}
+	catch (std::exception& ex)
+	{
+		map.map_atlas = "Resorses/Tiles.png";
+		cout << "map atlas no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.font = config.at("map_font");
+	}
+	catch (std::exception& ex)
+	{
+		map.font = "Resorses/Fonts/some_font.ttf";
+		cout << "map font no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.speed = stof(config.at("game_speed"));    // <stof> string to float
+	}
+	catch (std::exception& ex)
+	{
+		map.speed = 1.f;
+		cout << "game speed no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.atlas_width = stoi(config.at("atlas_width"));
+	}
+	catch (std::exception& ex)
+	{
+		map.atlas_width = 32;
+		cout << "atlas width no find " << ex.what() << endl;
+	}
+	try
+	{
+		map.atlas_height = stoi(config.at("atlas_height"));
+	}
+	catch (std::exception& ex)
+	{
+		map.atlas_height = 32;
+		cout << "atlas height no find " << ex.what() << endl;
+	}
 	
 	// ****** Mario ******/
 	try
@@ -83,6 +152,12 @@ void GameConfig::fillData()
 		mario_atlas = "Resorses/Mario.png";
 		cout << "mario atlas no find " << ex.what() << endl;
 	}
+
+	// ****** Enemies ****** //
+
+
+
+
 
 
 }
