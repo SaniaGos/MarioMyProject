@@ -22,19 +22,14 @@
 #define ENEMIES		       "Resorses/Enemies.png"
 #define ITEMS			   "Resorses/Items.png"
 
-#define MONEY_FRAMES	   4
 #define MONEY_LIVES 	   1
 #define MONEY_SOUND 	   "Resorses/music/coin.wav"
 
-#define MUSHR_FRAMES	   2
 #define MUSHR_LIVES		   1
 
 #define TURTLE_LIVES	   2
-#define TURTLE_FRAMES	   2
 
 //***** MARIO *****//
-#define MARIO_SPEED        1.5f
-#define MARIO_FRAMES       3
-#define MARIO_SPRITE       "Resorses/Mario.png"
-#define MARIO_JUMP         "Resorses/music/jump.wav"
+//#define GlobalConfig::GetConfig().mario_atlas       "Resorses/Mario.png"
+//#define GlobalConfig::GetConfig().mario_atlas         "Resorses/music/jump.wav"
 

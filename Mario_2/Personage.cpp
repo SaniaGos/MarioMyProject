@@ -44,10 +44,10 @@ PLAYER::PLAYER(Vector2f _pozition, Vector2i size) :
 	coin(0)
 {
 	dx = 0.5;
-	texture.loadFromFile(MARIO_SPRITE);
+	texture.loadFromFile(GlobalConfig::GetConfig().mario_atlas);
 	sprite.setTexture(texture);
 	sprite.setPosition(position);
-	buffer.loadFromFile(MARIO_JUMP);
+	buffer.loadFromFile(GlobalConfig::GetConfig().mario.music);
 	sound.setBuffer(buffer);
 }
 void PLAYER::collision_x(Map& map)
@@ -87,8 +87,8 @@ void PLAYER::stopRight() { playerRight = false; }
 void PLAYER::stopLeft() { playerLeft = false; }
 void PLAYER::update(float time, Map& map)
 {
-	currentFrame += time * MARIO_SPEED / 50;
-	if ((int)currentFrame >= MARIO_FRAMES) currentFrame = 0;
+	currentFrame += time * GlobalConfig::GetConfig().mario.speed / 50;
+	if ((int)currentFrame >= 3) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
@@ -113,21 +113,21 @@ void PLAYER::updateSprite()
 		sprite = frames[currentFrame + 1];
 
 	else if (playerLeft && !playerRight)
-		sprite = frames[currentFrame + 1 + MARIO_FRAMES];
+		sprite = frames[currentFrame + 1 + 3];
 
 	else sprite = frames[0];
 }
 void PLAYER::updatePosition(float time, Map& map)
 {
-	if (playerLeft)	position.x -= MARIO_SPEED * time * dx;
-	if (playerRight) position.x += MARIO_SPEED * time * dx;
+	if (playerLeft)	position.x -= GlobalConfig::GetConfig().mario.speed * time * dx;
+	if (playerRight) position.x += GlobalConfig::GetConfig().mario.speed * time * dx;
 	collision_x(map);
 
 	if (playerUp) jump();
 	if (!onGround)
 	{
-		dy += 0.0045 * time * MARIO_SPEED;
-		position.y += MARIO_SPEED * time * dy;
+		dy += 0.0045 * time * GlobalConfig::GetConfig().mario.speed;
+		position.y += GlobalConfig::GetConfig().mario.speed * time * dy;
 	}
 	collision_y(map);
 
@@ -205,7 +205,7 @@ void Mushrooms::updatePosition(float time, Map& map)
 void Mushrooms::update(float time, Map& map)
 {
 	currentFrame += time * SPEED_ENEMIES / 80;
-	if ((int)currentFrame >= MUSHR_FRAMES) currentFrame = 0;
+	if ((int)currentFrame >= 2) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }
@@ -225,7 +225,7 @@ void Mushrooms::updateSprite()
 		sprite.setTextureRect(e_frames[currentFrame + 1]);
 
 	else if (lives > 0 && back)
-		sprite.setTextureRect(e_frames[currentFrame + 1 + MUSHR_FRAMES]);
+		sprite.setTextureRect(e_frames[currentFrame + 1 + 2]);
 
 	else sprite.setTextureRect(e_frames[0]);
 }
@@ -253,7 +253,7 @@ Money::Money(Vector2f _position, Vector2i size) :
 void Money::update(float time, Map& map)
 {
 	currentFrame += time * SPEED_ENEMIES / 180;
-	if ((int)currentFrame >= MONEY_FRAMES) currentFrame = 0;
+	if ((int)currentFrame >= 4) currentFrame = 0;
 	updateSprite();
 	sprite.setPosition(position.x - map.offset.x, position.y);
 }
@@ -334,7 +334,7 @@ void Turtle::updateSprite()
 		sprite.setTextureRect(e_frames[currentFrame + 1]);
 
 	else if (lives > 1 && back)
-		sprite.setTextureRect(e_frames[currentFrame + 1 + TURTLE_FRAMES]);
+		sprite.setTextureRect(e_frames[currentFrame + 1 + 2]);
 
 	else sprite.setTextureRect(e_frames[0]);
 }
@@ -346,7 +346,7 @@ void Turtle::die()
 void Turtle::update(float time, Map& map)
 {
 	currentFrame += time * SPEED_ENEMIES / 80;
-	if ((int)currentFrame >= MUSHR_FRAMES) currentFrame = 0;
+	if ((int)currentFrame >= 2) currentFrame = 0;
 	updateSprite();
 	updatePosition(time, map);
 }

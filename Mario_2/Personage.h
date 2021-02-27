@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "Define.h"
 #include "Map.h"
+#include "GemeConfig.h"
 
 using namespace sf;
 using namespace std;

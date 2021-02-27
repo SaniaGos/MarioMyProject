@@ -23,7 +23,60 @@ void GameConfig::loadCongif(const string path)
 
 void GameConfig::fillData()
 {
-	mario.speed = stof(config["mario_speed"]);
+	// ****** Display ****** //
+	try
+	{
+		mario.life = stoi(config.at("mario_life"));
+	}
+	catch (std::exception& ex)
+	{
+		mario.life = 3;
+		cout << "mario life no find " << ex.what() << endl;
+	}
+	
+	
+	
+	
+	
+	// ****** Mario ******/
+	try
+	{
+		mario.speed = stof(config.at("mario_speed"));    // <stof> string to float
+	}
+	catch (std::exception& ex)
+	{
+		mario.speed = 1.5;
+		cout << "mario speed no find "<< ex.what() << endl;
+	}
+	try
+	{
+		mario.music = config.at("mario_music");
+	}
+	catch (std::exception& ex)
+	{
+		mario.music = "Resorses/music/jump.wav";
+		cout << "mario music no find " << ex.what() << endl;
+	}
+	try
+	{
+		mario.life = stoi(config.at("mario_life"));
+	}
+	catch (std::exception& ex)
+	{
+		mario.life = 3;
+		cout << "mario life no find " << ex.what() << endl;
+	}
+	try
+	{
+		mario_atlas = config.at("mario_atlas");
+	}
+	catch (std::exception& ex)
+	{
+		mario_atlas = "Resorses/Mario.png";
+		cout << "mario atlas no find " << ex.what() << endl;
+	}
+
+
 }
 
 pair<string, string> GameConfig::split(string str)

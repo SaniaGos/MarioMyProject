@@ -23,7 +23,6 @@ struct ConfigMap
 struct ConfigPlayer
 {
 	string music;
-	size_t frames;
 	size_t life;
 	float  speed;
 };
