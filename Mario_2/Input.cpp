@@ -8,7 +8,6 @@ void MyWindow::input()
     }
    
     // Опрацьовуємо нажимання клавіш керування Маріо //
-   
     if (Keyboard::isKeyPressed(Keyboard::Right))
     {
         mario.moveRight();

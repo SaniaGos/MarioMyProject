@@ -40,7 +40,6 @@ class PLAYER : public Personage
 {
 private:
 
-
 	bool        playerUp;
 	bool        playerDown;
 	bool        playerRight;

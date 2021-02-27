@@ -227,7 +227,7 @@ void GameConfig::fillData()
 	}
 	catch (std::exception& ex)
 	{
-		mushroom.life = 1;
+		mushroom.life = 4;
 		cout << "mushroom life no find " << ex.what() << endl;
 	}
 	try

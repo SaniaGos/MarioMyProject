@@ -3,7 +3,7 @@
 
 int main()
 {
-    auto a = GlobalConfig::GetConfig();
+    //auto a = GlobalConfig::GetConfig();
     
     MyWindow game;
     game.start();
