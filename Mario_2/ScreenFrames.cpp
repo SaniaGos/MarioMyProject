@@ -9,7 +9,7 @@ ScreenFrames::ScreenFrames() :
 	framesFont.loadFromFile(GlobalConfig::GetConfig().map.font);
 	framesText.setFont(framesFont);
 	framesText.setCharacterSize(30);
-	framesText.setColor(Color::Green);
+	framesText.setColor(Color::Color(255, 191, 0));
 	framesText.setStyle(Text::Bold);
 	framesText.setPosition(64, 32);
 }

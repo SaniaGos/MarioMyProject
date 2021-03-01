@@ -209,7 +209,7 @@ void Mushrooms::update(float time, Map& map)
 	updateSprite();
 	updatePosition(time, map);
 }
-void Mushrooms::die() { lives = 0; }
+void Mushrooms::die() { lives != 0 ? lives-- : lives; }
 void Mushrooms::collision(PLAYER& mario)
 {
 	if (mario.getSpeed().y > 0)
@@ -263,7 +263,11 @@ void Money::collision(PLAYER& mario)
 	mario.addCoin();
 	die();
 }
-void Money::die() { lives = 0, life = false; }
+void Money::die()
+{
+		lives--;
+		if (lives == 0) life = false;
+}
 void Money::updateSprite()
 {
 	sprite.setTexture(texture);

@@ -30,7 +30,6 @@ void MyWindow::drawMap()
 		}
 	}
 }
-
 void MyWindow::drawEnemies()
 {
 	for (size_t i = 0; i < personage.size(); i++)
@@ -43,7 +42,6 @@ void MyWindow::drawEnemies()
 		}
 	}
 }
-
 void MyWindow::loadPersonage()
 {
 	for (size_t i = 0; i < map.getMap().size(); i++)

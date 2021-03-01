@@ -1,0 +1,16 @@
+﻿  Window.cpp
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(21,71): warning C4244: аргумент: преобразование "size_t" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(43,58): warning C4244: =: преобразование "sf::Int64" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(58,58): warning C4244: =: преобразование "sf::Int64" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Window.cpp(59,36): warning C4244: аргумент: преобразование "float" в "sf::Int64", возможна потеря данных
+  Создание кода
+  2 of 583 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+MSVCRT.lib(sehprolg4.obj) : warning LNK4020: запись типа в "c:\users\saniagos\source\repos\mario_2\mario_2\release\vc142.pdb" повреждена; некоторые символы и типы могут быть недоступными из отладчика
+MSVCRT.lib(ftol3.obj) : warning LNK4020: запись типа в "c:\users\saniagos\source\repos\mario_2\mario_2\release\vc142.pdb" повреждена; некоторые символы и типы могут быть недоступными из отладчика
+MSVCRT.lib(utility_desktop.obj) : warning LNK4020: запись типа в "c:\users\saniagos\source\repos\mario_2\mario_2\release\vc142.pdb" повреждена; некоторые символы и типы могут быть недоступными из отладчика
+MSVCRT.lib(x86_exception_filter.obj) : warning LNK4020: запись типа в "c:\users\saniagos\source\repos\mario_2\mario_2\release\vc142.pdb" повреждена; некоторые символы и типы могут быть недоступными из отладчика
+vcruntime.lib(VCRUNTIME140.dll) : warning LNK4020: запись типа в "c:\users\saniagos\source\repos\mario_2\mario_2\release\vc142.pdb" повреждена; некоторые символы и типы могут быть недоступными из отладчика
+  Mario_2.vcxproj -> C:\Users\SaniaGos\source\repos\Mario_2\Release\Mario_2.exe

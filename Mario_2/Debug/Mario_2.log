@@ -1,2 +1,65 @@
-﻿  GemeConfig.cpp
+﻿  Personage.cpp
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(55,13): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(56,14): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(61,83): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(62,82): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(69,13): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(70,14): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(75,79): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(76,79): warning C4244: =: преобразование "size_t" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(113,32): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(116,36): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(129,62): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(154,16): warning C4018: >: несоответствие типов со знаком и без знака
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(174,10): warning C4305: =: усечение из "double" в "float"
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(217,24): warning C4305: аргумент: усечение из "double" в "float"
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(225,47): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(228,51): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(275,34): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(290,10): warning C4305: =: усечение из "double" в "float"
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(323,13): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(324,14): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(338,47): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(341,51): warning C4244: аргумент: преобразование "float" в "const unsigned int", возможна потеря данных
+C:\Users\SaniaGos\source\repos\Mario_2\Mario_2\Personage.cpp(361,24): warning C4305: аргумент: усечение из "double" в "float"
   Mario_2.vcxproj -> C:\Users\SaniaGos\source\repos\Mario_2\Debug\Mario_2.exe

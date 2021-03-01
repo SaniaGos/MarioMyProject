@@ -1,7 +1,7 @@
 horizontal_resolution:1000
 vertical_resolution:600
 mushroom_life:4
-mario_speed:5
+mario_speed:2
 mario_life:3
 turtle_life:4
 game_speed:1
